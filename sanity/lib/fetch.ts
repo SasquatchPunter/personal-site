@@ -1,9 +1,13 @@
 import { client } from "./client";
-import { postPathsQuery, postFromSlugQuery } from "./queries";
+import { postsPathsQuery, postFromSlugQuery } from "./queries";
+import type { PostsPathsQueryResult, PostFromSlugQueryResult } from "../types";
 
-export const getPostPaths = async (slug: string) => {
-  return await client.fetch(postPathsQuery, { slug });
+export const getPostsPaths = async (): Promise<PostsPathsQueryResult> => {
+  return await client.fetch(postsPathsQuery);
 };
-export const getPostBySlug = async (slug: string) => {
+
+export const getPostBySlug = async (
+  slug: string
+): Promise<PostFromSlugQueryResult> => {
   return await client.fetch(postFromSlugQuery, { slug });
 };
