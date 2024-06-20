@@ -7,17 +7,32 @@ export default defineType({
   type: "document",
   icon: BookIcon,
   fields: [
-    { title: "Title", name: "title", type: "string" },
+    {
+      title: "Title",
+      name: "title",
+      type: "string",
+      validation(rule) {
+        return rule.required();
+      },
+    },
     {
       title: "Slug",
       name: "slug",
       type: "slug",
       options: { source: "title" },
+      readOnly: true,
       validation(rule) {
         return rule.required();
       },
     },
-    { title: "Main Image", name: "mainImage", type: "image" },
+    {
+      title: "Main Image",
+      name: "mainImage",
+      type: "image",
+      validation(rule) {
+        return rule.required();
+      },
+    },
     {
       title: "Tags",
       name: "tags",
@@ -37,9 +52,16 @@ export default defineType({
       type: "text",
       rows: 4,
       validation(rule) {
-        return rule.min(20).max(200);
+        return rule.min(20).max(200).optional();
       },
     },
-    { title: "Body", name: "body", type: "blogBody" },
+    {
+      title: "Body",
+      name: "body",
+      type: "blogBody",
+      validation(rule) {
+        return rule.required();
+      },
+    },
   ],
 });
