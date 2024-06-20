@@ -4,7 +4,7 @@ export default function ExtendedImage(props: any) {
   const source = props.value.image;
   const { alt, caption, title } = props.value;
   return (
-    <div className="overflow-hidden text-gray-400 text-xs">
+    <div className="text-gray-400 text-xs">
       <BaseImage
         className="w-full object-cover rounded-xl"
         source={source}
