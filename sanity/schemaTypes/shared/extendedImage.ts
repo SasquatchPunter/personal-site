@@ -2,7 +2,7 @@ import { defineType } from "sanity";
 
 export default defineType({
   title: "Extended Image",
-  name: "extended_image",
+  name: "extendedImage",
   type: "object",
   description: "Image extended with added options.",
   fields: [

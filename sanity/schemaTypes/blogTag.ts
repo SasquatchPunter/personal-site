@@ -3,7 +3,7 @@ import { TagsIcon } from "@sanity/icons";
 
 export default defineType({
   title: "Blog Tag",
-  name: "blog_tag",
+  name: "blogTag",
   type: "document",
   icon: TagsIcon,
   fields: [

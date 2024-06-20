@@ -3,7 +3,7 @@ import { BookIcon } from "@sanity/icons";
 
 export default defineType({
   title: "Blog Post",
-  name: "blog_post",
+  name: "blogPost",
   type: "document",
   icon: BookIcon,
   fields: [
@@ -27,7 +27,7 @@ export default defineType({
           title: "Tag",
           name: "tag",
           type: "reference",
-          to: [{ type: "blog_tag" }],
+          to: [{ type: "blogTag" }],
         },
       ],
     },
@@ -40,6 +40,6 @@ export default defineType({
         return rule.min(20).max(200);
       },
     },
-    { title: "Body", name: "body", type: "blog_body" },
+    { title: "Body", name: "body", type: "blogBody" },
   ],
 });
