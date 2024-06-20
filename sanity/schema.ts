@@ -1,12 +1,12 @@
 import { type SchemaTypeDefinition } from "sanity";
 
-import blog_body from "./schemaTypes/blog_body";
-import blog_post from "./schemaTypes/blog_post";
-import blog_tag from "./schemaTypes/blog_tag";
+import blogBody from "./schemaTypes/blogBody";
+import blogPost from "./schemaTypes/blogPost";
+import blogTag from "./schemaTypes/blogTag";
 
-import extended_image from "./schemaTypes/shared/extended_image";
+import extendedImage from "./schemaTypes/shared/extendedImage";
 import youtube from "./schemaTypes/shared/youtube";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blog_body, blog_post, blog_tag, extended_image, youtube],
+  types: [blogBody, blogPost, blogTag, extendedImage, youtube],
 };

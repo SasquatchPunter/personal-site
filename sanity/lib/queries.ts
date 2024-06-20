@@ -1,5 +1,5 @@
 import { groq } from "next-sanity";
 
 // Blog
-export const postPathsQuery = groq`*[ _type == "blog_post" ] { slug }`;
-export const postFromSlugQuery = groq`*[ _type == "blog_post" && slug.current == $slug ]`;
+export const postsPathsQuery = groq`*[ _type == "blogPost" && defined(slug.current) ][] { slug }`;
+export const postFromSlugQuery = groq`*[ _type == "blogPost" && slug.current == $slug ][0]`;

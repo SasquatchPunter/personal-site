@@ -11,11 +11,11 @@ const BlogContent = (S: StructureBuilder) => {
           S.listItem()
             .title("Blog Posts")
             .icon(BookIcon)
-            .child(S.documentTypeList("blog_post")),
+            .child(S.documentTypeList("blogPost")),
           S.listItem()
             .title("Blog Tags")
             .icon(TagsIcon)
-            .child(S.documentTypeList("blog_tag")),
+            .child(S.documentTypeList("blogTag")),
         ])
     );
 };
