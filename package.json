@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "clean:sanity:types": "rm -f ./sanity/schema.json",
+    "build:sanity:types": "npm run clean:sanity:types && npx sanity schema extract --path ./sanity/schema.json && npx sanity typegen generate",
     "start": "next start",
     "lint": "next lint"
   },
