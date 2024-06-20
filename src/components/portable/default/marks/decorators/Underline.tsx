@@ -1,3 +1,3 @@
-export default function Underline(props) {
-  return <span className="underline">{props.children}</span>
+export default function Underline(props: any) {
+  return <span className="underline">{props.children}</span>;
 }

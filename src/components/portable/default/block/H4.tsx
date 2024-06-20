@@ -1,3 +1,3 @@
-export default function H4(props) {
-  return <h4 className="text-3xl">{props.children}</h4>
+export default function H4(props: any) {
+  return <h4 className="text-3xl">{props.children}</h4>;
 }

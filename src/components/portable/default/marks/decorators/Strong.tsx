@@ -1,3 +1,3 @@
-export default function Strong(props) {
-  return <strong>{props.children}</strong>
+export default function Strong(props: any) {
+  return <strong>{props.children}</strong>;
 }

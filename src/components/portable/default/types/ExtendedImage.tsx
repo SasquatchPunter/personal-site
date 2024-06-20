@@ -1,8 +1,8 @@
-import BaseImage from './BaseImage'
+import BaseImage from "./BaseImage";
 
-export default function ExtendedImage(props) {
-  const source = props.value.image
-  const { alt, caption, title } = props.value
+export default function ExtendedImage(props: any) {
+  const source = props.value.image;
+  const { alt, caption, title } = props.value;
   return (
     <div className="overflow-hidden text-gray-400 text-xs">
       <BaseImage
@@ -15,5 +15,5 @@ export default function ExtendedImage(props) {
       />
       <p className="py-2">{caption}</p>
     </div>
-  )
+  );
 }

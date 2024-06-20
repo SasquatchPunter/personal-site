@@ -1,14 +1,14 @@
-import BaseImage from './BaseImage'
+import BaseImage from "./BaseImage";
 
-export default function Image(props) {
+export default function Image(props: any) {
   return (
-    <p>
+    <div>
       <BaseImage
         className="w-full object-cover rounded-xl"
         source={props.value}
         width={400}
         height={300}
       />
-    </p>
-  )
+    </div>
+  );
 }

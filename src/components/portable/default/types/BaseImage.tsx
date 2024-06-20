@@ -1,13 +1,13 @@
-import { urlForImage } from '~/lib/sanity.image'
-import NextImage from 'next/image'
+import { urlForImage } from "@/sanity/lib/image";
+import NextImage from "next/image";
 
 interface Props {
-  className?: string
-  source: any
-  height?: number | `${number}`
-  width?: number | `${number}`
-  alt?: string
-  title?: string
+  className?: string;
+  source: any;
+  height?: number | `${number}`;
+  width?: number | `${number}`;
+  alt?: string;
+  title?: string;
 }
 export default function BaseImage({
   className,
@@ -17,15 +17,15 @@ export default function BaseImage({
   alt,
   title,
 }: Props) {
-  const src = urlForImage(source).url()
+  const src = urlForImage(source);
   return (
     <NextImage
       className={className}
       src={src}
       height={height}
       width={width}
-      alt={alt}
+      alt={alt || "Image"}
       title={title}
     />
-  )
+  );
 }

@@ -1,3 +1,3 @@
-export default function Em(props) {
-  return <em>{props.children}</em>
+export default function Em(props: any) {
+  return <em>{props.children}</em>;
 }
