@@ -1,6 +1,7 @@
+import type { InferGetStaticPropsType } from "next";
+
 import { getPostsPaths, getPostBySlug } from "@/sanity/lib/fetch";
 import BlogPost from "@/src/components/blog/BlogPost";
-import { InferGetStaticPropsType } from "next";
 
 export async function getStaticProps({ params }: { params: any }) {
   const post = await getPostBySlug(params.slug);
