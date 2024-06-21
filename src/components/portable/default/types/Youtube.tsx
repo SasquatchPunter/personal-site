@@ -1,8 +1,11 @@
 import dynamic from "next/dynamic";
-
-const Player = dynamic(import("react-player/youtube"), { ssr: false });
+import { useMemo } from "react";
 
 export default function Youtube(props: any) {
+  const Player = useMemo(
+    () => dynamic(import("react-player/youtube"), { ssr: false }),
+    []
+  );
   return (
     <div className="w-full h-96">
       <Player
