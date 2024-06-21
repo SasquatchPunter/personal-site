@@ -1,10 +1,9 @@
 import type { BlogPost, PostFromSlugQueryResult } from "@/sanity/types";
-import type { ImageAsset } from "sanity";
 import type { PortableTextBlock } from "next-sanity";
 
-import BlogHeader from "./BlogHeader";
-import BlogBody from "./BlogBody";
-import BlogFooter from "./BlogFooter";
+import BlogPostHeader from "./BlogPostHeader";
+import BlogPostBody from "./BlogPostBody";
+import BlogPostFooter from "./BlogPostFooter";
 
 interface Props {
   post: NonNullable<PostFromSlugQueryResult>;
@@ -12,12 +11,17 @@ interface Props {
 export default function BlogPost({ post }: Props) {
   return (
     <article>
-      <BlogHeader
+      <BlogPostHeader
         title={post.title!}
-        image={post.mainImage!.asset! as ImageAsset}
+        mainImage={post.mainImage}
+        createdAt={post._createdAt}
       />
-      <BlogBody body={post.body! as PortableTextBlock[]} />
-      <BlogFooter />
+      <BlogPostBody
+        tags={post.tags}
+        excerpt={post.excerpt}
+        body={post.body! as PortableTextBlock[]}
+      />
+      <BlogPostFooter />
     </article>
   );
 }
