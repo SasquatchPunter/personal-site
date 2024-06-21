@@ -20,7 +20,6 @@ export default defineType({
       name: "slug",
       type: "slug",
       options: { source: "title" },
-      readOnly: true,
       validation(rule) {
         return rule.required();
       },

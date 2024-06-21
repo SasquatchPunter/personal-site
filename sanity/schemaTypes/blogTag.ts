@@ -16,11 +16,5 @@ export default defineType({
         return rule.required().min(2).max(64).lowercase();
       },
     },
-    {
-      title: "Color",
-      name: "color",
-      type: "color",
-      description: "[OPTIONAL] Display color for the tag's site styling.",
-    },
   ],
 });

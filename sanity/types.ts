@@ -98,7 +98,6 @@ export type BlogTag = {
   _updatedAt: string;
   _rev: string;
   key?: string;
-  color?: Color;
 };
 
 export type BlogPost = {
@@ -314,7 +313,7 @@ export type PostsPathsQueryResult = Array<{
   slug: Slug | null;
 }>;
 // Variable: postFromSlugQuery
-// Query: *[ _type == "blogPost" && slug.current == $slug ][0] {    ...,    tags[]->{key},    mainImage{asset->}}
+// Query: *[ _type == "blogPost" && slug.current == $slug ][0] {    ...,    'tags': tags[]->{key},    'mainImage': mainImage.asset->}
 export type PostFromSlugQueryResult = {
   _id: string;
   _type: "blogPost";
@@ -324,28 +323,26 @@ export type PostFromSlugQueryResult = {
   title?: string;
   slug?: Slug;
   mainImage: {
-    asset: {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
-    } | null;
+    _id: string;
+    _type: "sanity.imageAsset";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    originalFilename?: string;
+    label?: string;
+    title?: string;
+    description?: string;
+    altText?: string;
+    sha1hash?: string;
+    extension?: string;
+    mimeType?: string;
+    size?: number;
+    assetId?: string;
+    uploadId?: string;
+    path?: string;
+    url?: string;
+    metadata?: SanityImageMetadata;
+    source?: SanityAssetSourceData;
   } | null;
   tags: Array<{
     key: string | null;
