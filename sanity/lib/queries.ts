@@ -7,7 +7,6 @@ export const postsPathsQuery = groq`
 export const postFromSlugQuery = groq`
 *[ _type == "blogPost" && slug.current == $slug ][0] {
     ...,
-    tags[]->{key},
-    mainImage{asset->}
+    'tags': tags[]->{key},
 }
 `;
