@@ -11,13 +11,16 @@ export default function CodeBlock(props: PortableTextTypeComponentProps<any>) {
   }, [code]);
 
   return (
-    <div className="rounded-xl overflow-hidden bg-stone-200">
+    <div className="rounded-xl overflow-hidden bg-stone-200 relative">
       {/* <div className="flex justify-between text-sm p-2">
         <span>{filename}</span>
       </div> */}
       <Light language={language} style={gruvboxDark} showLineNumbers>
         {code}
       </Light>
+      <button className="absolute right-0 top-0 m-2" onClick={onClick}>
+        Copy
+      </button>
       {/* <span className="">{language}</span> */}
     </div>
   );
