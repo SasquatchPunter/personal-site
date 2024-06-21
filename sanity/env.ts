@@ -13,6 +13,8 @@ export const projectId = assertValue(
 
 export const prod = process.env.NODE_ENV === "production";
 
+export const readToken = process.env.SANITY_AUTH_TOKEN;
+
 export const useCdn = false;
 
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
