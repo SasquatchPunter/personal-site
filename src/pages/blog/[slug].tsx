@@ -11,7 +11,7 @@ export async function getStaticProps({ params }: { params: any }) {
   return { props: { post } };
 }
 
-export default function BlogPostRoute({
+export default function BlogPostPage({
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return <BlogPost post={post} />;
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
   }));
   return {
     // this circumvents a regression that causes Next to resolve empty path arrays to all dynamic routes
-    paths: paths.length !== 0 ? paths : [{ params: { slug: "" } }],
+    paths: [...paths, { params: { slug: "404" } }],
     fallback: false,
   };
 }
