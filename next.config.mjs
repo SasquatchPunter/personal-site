@@ -4,7 +4,11 @@ const nextConfig = {
   output: "export",
   images: {
     remotePatterns: [{ hostname: "cdn.sanity.io" }],
+    // TODO: implement loader for static build image optimization
     unoptimized: true,
+  },
+  async rewrites() {
+    return [{ source: "/:path*/404", destination: "/404" }];
   },
 };
 
