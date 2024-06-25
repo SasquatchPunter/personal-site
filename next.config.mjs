@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: "export",
+  // output: "export",
   images: {
     remotePatterns: [{ hostname: "cdn.sanity.io" }],
     // TODO: implement loader for static build image optimization
-    unoptimized: true,
+    // unoptimized: true,
   },
   async rewrites() {
-    return [{ source: "/:path*/404", destination: "/404" }];
+    return [
+      { source: "/:path*/404", destination: "/404" },
+      { source: "/admin/:path*", destination: "/admin" },
+    ];
   },
 };
 
