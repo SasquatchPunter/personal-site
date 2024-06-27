@@ -31,7 +31,6 @@ export default defineType({
       validation(rule) {
         return rule.required().assetRequired();
       },
-      options: { caption: { max: 10 } },
     },
     {
       title: "Tags",
