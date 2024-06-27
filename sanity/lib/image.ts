@@ -9,5 +9,5 @@ const imageBuilder = createImageUrlBuilder({
 });
 
 export const urlForImage = (source: Image) => {
-  return imageBuilder?.image(source).auto("format").url();
+  return imageBuilder?.image(source).auto("format");
 };
