@@ -6,21 +6,24 @@ interface Props {
   title: string;
   mainImage: any;
   createdAt: string;
+  updatedAt: string;
 }
-export default function BlogHeader({ title, mainImage, createdAt }: Props) {
+export default function BlogHeader({ title, mainImage, updatedAt }: Props) {
+  const src = urlForImage(mainImage).url();
+
   return (
     <header>
-      <h1>{title}</h1>
       <NextImage
-        className="w-full"
-        src={urlForImage(mainImage)}
+        className="w-full h-screen-2/5 object-cover"
+        src={src}
         alt="Blog Post header image."
-        width={300}
-        height={400}
+        width={3000}
+        height={4000}
         priority
       />
-      <p>
-        <em>Written on {formatDateString(createdAt)}</em>
+      <h1 className="text-6xl text-center px-8 -translate-y-1/2">{title}</h1>
+      <p className="text-center">
+        <em className="uppercase">Updated {formatDateString(updatedAt)}</em>
       </p>
     </header>
   );

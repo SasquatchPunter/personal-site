@@ -17,16 +17,14 @@ function BlogPostTag({ tag }: BlogPostTagProps) {
 }
 
 interface Props {
-  tags: { key: string | null }[] | null;
+  tags: (string | null)[] | null;
 }
 export default function BlogPostTags({ tags }: Props) {
   return (
-    <ul className="flex gap-2">
+    <ul className="flex gap-2 justify-center">
       {tags &&
         tags.map((tag) =>
-          tag && tag.key ? (
-            <BlogPostTag tag={tag.key} key={tag.key} />
-          ) : undefined
+          tag ? <BlogPostTag tag={tag} key={tag} /> : undefined
         )}
     </ul>
   );
