@@ -27,10 +27,11 @@ export default defineType({
     {
       title: "Main Image",
       name: "mainImage",
-      type: "image",
+      type: "defaultImage",
       validation(rule) {
-        return rule.required();
+        return rule.required().assetRequired();
       },
+      options: { caption: { max: 10 } },
     },
     {
       title: "Tags",

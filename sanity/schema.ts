@@ -4,9 +4,10 @@ import blogBody from "./schemaTypes/blogBody";
 import blogPost from "./schemaTypes/blogPost";
 import blogTag from "./schemaTypes/blogTag";
 
-import extendedImage from "./schemaTypes/shared/extendedImage";
+import defaultImage from "./schemaTypes/shared/defaultImage";
 import youtube from "./schemaTypes/shared/youtube";
+import sectionRule from "./schemaTypes/shared/sectionRule";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blogBody, blogPost, blogTag, extendedImage, youtube],
+  types: [blogBody, blogPost, blogTag, defaultImage, youtube, sectionRule],
 };
