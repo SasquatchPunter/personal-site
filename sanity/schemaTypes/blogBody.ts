@@ -17,7 +17,6 @@ export default defineType({
         { title: "Sub Heading 1", value: "h3" },
         { title: "Sub Heading 2", value: "h4" },
         { title: "Sub Heading 3", value: "h5" },
-        { title: "Horizontal Rule", value: "hr" },
       ],
       marks: {
         decorators: [
