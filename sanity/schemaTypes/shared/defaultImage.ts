@@ -8,7 +8,9 @@ export default defineType({
   validation(rule) {
     return rule.required().assetRequired();
   },
-  preview: { select: { caption: "caption", media: "asset", title: "title" } },
+  preview: {
+    select: { caption: "caption", title: "title", media: "asset" },
+  },
   components: { preview: DefaultImage },
   fieldsets: [
     {
