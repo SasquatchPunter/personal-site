@@ -7,7 +7,7 @@ function BlogPostTag({ tag }: BlogPostTagProps) {
   return (
     <li>
       <Link
-        className="inline-block bg-blue-500 bg-opacity-50 rounded-full border-2 border-blue-400 border-opacity-50 px-2"
+        className="inline-block text-stone-200 bg-stone-500 bg-opacity-50 rounded-full border-2 border-stone-400 border-opacity-50 px-2"
         href={`/blog?tags=${tag}`}
       >
         #{tag}
