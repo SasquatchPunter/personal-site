@@ -1,6 +1,8 @@
 import type { InferGetStaticPropsType } from "next";
+import type { Anchors } from "@/sanity/utils/blog";
 
 import { getPostsPaths, getPostBySlug } from "@/sanity/lib/fetch";
+import { tocTreeFromAnchors } from "@/sanity/utils/blog";
 import BlogPost from "@/src/components/blog/BlogPost";
 
 export async function getStaticProps({ params }: { params: any }) {
@@ -8,7 +10,16 @@ export async function getStaticProps({ params }: { params: any }) {
 
   if (!post) return { notFound: true };
 
-  return { props: { post } };
+  const toc = tocTreeFromAnchors(post.anchors as Anchors) || null;
+
+  return {
+    props: {
+      post: {
+        ...post,
+        toc,
+      },
+    },
+  };
 }
 
 export default function BlogPostPage({

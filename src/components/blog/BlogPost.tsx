@@ -23,11 +23,7 @@ export default function BlogPost({ post }: Props) {
         <BlogPostTags tags={post.tags} />
         <BlogPostExcerpt excerpt={post.excerpt} />
       </section>
-      <BlogPostMain
-        tags={post.tags}
-        excerpt={post.excerpt}
-        body={post.body! as PortableTextBlock[]}
-      />
+      <BlogPostMain body={post.body as PortableTextBlock[]} toc={post.toc} />
       <BlogPostFooter />
     </article>
   );

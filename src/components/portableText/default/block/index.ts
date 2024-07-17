@@ -1,3 +1,7 @@
+import AH2 from "./AH2";
+import AH3 from "./AH3";
+import AH4 from "./AH4";
+import AH5 from "./AH5";
 import BlockQuote from "./BlockQuote";
 import H1 from "./H1";
 import H2 from "./H2";
@@ -16,6 +20,10 @@ const block = {
   h5: H5,
   h6: H6,
   normal: P,
+  ah2: AH2,
+  ah3: AH3,
+  ah4: AH4,
+  ah5: AH5,
 };
 
 export default block;

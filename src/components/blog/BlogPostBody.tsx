@@ -5,7 +5,7 @@ import list from "@/src/components/portableText/default/list";
 import marks from "@/src/components/portableText/default/marks";
 import types from "@/src/components/portableText/default/types";
 
-import { wrapSections, getSectionRanges } from "@/src/utils/portableText";
+import { wrapSections, getSectionRanges } from "@/sanity/utils/portableText";
 
 interface Props {
   body: PortableTextBlock[];
