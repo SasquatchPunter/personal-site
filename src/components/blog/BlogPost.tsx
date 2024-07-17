@@ -1,5 +1,6 @@
-import type { BlogPost, PostFromSlugQueryResult } from "@/sanity/types";
+import type { BlogPost } from "@/sanity/types";
 import type { PortableTextBlock } from "next-sanity";
+import type { BlogPostPageProps } from "@/src/pages/blog/[slug]";
 
 import BlogPostHeader from "./BlogPostHeader";
 import BlogPostMain from "./BlogPostMain";
@@ -7,12 +8,9 @@ import BlogPostFooter from "./BlogPostFooter";
 import BlogPostTags from "./BlogPostTags";
 import BlogPostExcerpt from "./BlogPostExcerpt";
 
-interface Props {
-  post: NonNullable<PostFromSlugQueryResult>;
-}
-export default function BlogPost({ post }: Props) {
+export default function BlogPost({ post }: BlogPostPageProps) {
   return (
-    <article className="flex flex-col gap-8">
+    <>
       <BlogPostHeader
         title={post.title!}
         mainImage={post.mainImage!}
@@ -25,6 +23,6 @@ export default function BlogPost({ post }: Props) {
       </section>
       <BlogPostMain body={post.body as PortableTextBlock[]} toc={post.toc} />
       <BlogPostFooter />
-    </article>
+    </>
   );
 }
