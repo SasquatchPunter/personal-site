@@ -10,6 +10,7 @@ import { schema } from "./sanity/schema";
 import { structure } from "./sanity/structure";
 
 export default defineConfig({
+  title: "JeremyElliott.dev",
   basePath: "/admin",
   projectId,
   dataset,
