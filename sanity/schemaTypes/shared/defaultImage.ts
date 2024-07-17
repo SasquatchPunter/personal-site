@@ -1,4 +1,5 @@
 import { defineType } from "sanity";
+import { ImageIcon } from "@sanity/icons";
 import DefaultImage from "@/src/components/studio/block/DefaultImage";
 
 export default defineType({
@@ -19,6 +20,7 @@ export default defineType({
       options: { collapsible: true, collapsed: true },
     },
   ],
+  icon: ImageIcon,
   fields: [
     {
       title: "Caption",
