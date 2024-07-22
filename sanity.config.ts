@@ -9,8 +9,11 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schema";
 import { structure } from "./sanity/structure";
 
+import Icon from "@/src/assets/icons/favicon.svg";
+
 export default defineConfig({
   title: "JeremyElliott.dev",
+  icon: Icon,
   basePath: "/admin",
   projectId,
   dataset,
