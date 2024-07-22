@@ -23,3 +23,11 @@ export function formatDateString(
       });
   }
 }
+
+/**
+ * Sorting function for date strings.
+ * @returns Negative number if `a` comes before `b`, 0 if `a` and `b` are equal, and a positive number if `a` comes after `b`.
+ */
+export function compareDateStrings(a: string, b: string) {
+  return new Date(a).getTime() - new Date(b).getTime();
+}
