@@ -1,3 +1,7 @@
+import type { MinPostsQueryResult } from "@/sanity/types";
+
+import { compareDateStrings } from "@/src/utils/date";
+
 export type TocNode = {
   label: string;
   id: string;
@@ -56,4 +60,86 @@ export function tocTreeFromAnchors(
   const minLevel = Math.min(...levels) as Anchor["level"];
 
   return generate([...anchors], depth || maxLevel, minLevel);
+}
+
+/**
+ * Filters a list of minified posts using a filter object.
+ * @param posts List of posts to filter
+ * @param filter Filter object
+ */
+export function filterPosts(
+  posts: MinPostsQueryResult,
+  filter: {
+    /** Tags to include when filtering. An empty array allows only posts that are tagged. */
+    includeTags?: string[];
+    /** Tags to exclude when filtering. */
+    excludeTags?: string[];
+    /** Posts created after this date are filtered out. */
+    createdBefore?: string;
+    /** Posts created before this date are filtered out. */
+    createdAfter?: string;
+    /** Posts updated after this date are filterd out. */
+    updatedBefore?: string;
+    /** Posts updated before this date are filtered out. */
+    updatedAfter?: string;
+  }
+): MinPostsQueryResult {
+  return posts.filter((post) => {
+    if (filter.includeTags != undefined) {
+      switch (
+        post.tags != null &&
+        filter.includeTags.every((tag) => post.tags!.includes(tag))
+      ) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+    if (filter.excludeTags != undefined) {
+      switch (
+        post.tags == null ||
+        !filter.excludeTags!.some((tag) => post.tags!.includes(tag))
+      ) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+    if (filter.createdBefore != undefined) {
+      switch (compareDateStrings(post._createdAt, filter.createdBefore) < 0) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+    if (filter.createdAfter != undefined) {
+      switch (compareDateStrings(post._createdAt, filter.createdAfter) > 0) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+    if (filter.updatedBefore != undefined) {
+      switch (compareDateStrings(post._updatedAt, filter.updatedBefore) < 0) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+    if (filter.updatedAfter != undefined) {
+      switch (compareDateStrings(post._updatedAt, filter.updatedAfter) > 0) {
+        case true:
+          break;
+        default:
+          return false;
+      }
+    }
+
+    return true;
+  });
 }

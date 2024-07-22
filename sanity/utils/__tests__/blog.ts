@@ -1,6 +1,7 @@
+import type { MinPostsQueryResult } from "@/sanity/types";
 import type { Anchor, Anchors, TocLeaf, TocTree } from "../blog";
 
-import { tocTreeFromAnchors } from "../blog";
+import { tocTreeFromAnchors, filterPosts } from "../blog";
 
 describe("tocTreeFromAnchors()", () => {
   /** Mock tree nodes with no set children. */
@@ -145,5 +146,114 @@ describe("tocTreeFromAnchors()", () => {
     const tree = tocTreeFromAnchors(anchors, depth);
     const expected: TocTree = [mockNodes[1], mockNodes[1]];
     expect(tree).toEqual(expected);
+  });
+});
+
+describe("filterPosts()", () => {
+  const template: MinPostsQueryResult[0] = {
+    _id: "",
+    _createdAt: "",
+    _updatedAt: "",
+    title: "",
+    slug: "",
+    tags: [],
+  };
+
+  describe("Filters by tags.", () => {
+    const posts: MinPostsQueryResult = [
+      { ...template, tags: ["programming"] },
+      { ...template, tags: [] },
+      { ...template, tags: ["programming", "cms"] },
+    ];
+
+    test("Filters by included tags.", () => {
+      expect(filterPosts(posts, { includeTags: ["programming"] })).toEqual([
+        posts[0],
+        posts[2],
+      ]);
+      expect(filterPosts(posts, { includeTags: [] })).toEqual(posts);
+      expect(filterPosts(posts, { includeTags: ["fake tag"] })).toEqual([]);
+      expect(filterPosts(posts, { includeTags: ["cms"] })).toEqual([posts[2]]);
+    });
+
+    test("Filters by excluded tags.", () => {
+      expect(filterPosts(posts, { excludeTags: ["programming"] })).toEqual([
+        posts[1],
+      ]);
+      expect(filterPosts(posts, { excludeTags: [] })).toEqual(posts);
+      expect(filterPosts(posts, { excludeTags: ["fake tag"] }));
+      expect(filterPosts(posts, { excludeTags: ["cms"] })).toEqual([
+        posts[0],
+        posts[1],
+      ]);
+    });
+
+    test("Filters by included and excluded tags.", () => {});
+  });
+
+  describe("Filters by _createdAt.", () => {
+    const posts: MinPostsQueryResult = [
+      { ...template, _createdAt: "2000-01-01T00:00:00Z" },
+      { ...template, _createdAt: "2000-01-02T00:00:00Z" },
+      { ...template, _createdAt: "2000-01-03T00:00:00Z" },
+      { ...template, _createdAt: "2000-01-04T00:00:00Z" },
+    ];
+
+    test("Filters by createdBefore.", () => {
+      expect(
+        filterPosts(posts, { createdBefore: "1999-12-31T23:59:59Z" })
+      ).toEqual([]);
+      expect(
+        filterPosts(posts, { createdBefore: "2010-01-01T00:00:00Z" })
+      ).toEqual(posts);
+      expect(
+        filterPosts(posts, { createdBefore: "2000-01-03T00:00:00Z" })
+      ).toEqual([posts[0], posts[1]]);
+    });
+
+    test("Filters by createdAfter.", () => {
+      expect(
+        filterPosts(posts, { createdAfter: "2000-01-01T00:00:00Z" })
+      ).toEqual([posts[1], posts[2], posts[3]]);
+      expect(
+        filterPosts(posts, { createdAfter: "2010-01-01T00:00:00Z" })
+      ).toEqual([]);
+      expect(
+        filterPosts(posts, { createdAfter: "1999-12-31T23:59:59Z" })
+      ).toEqual(posts);
+    });
+  });
+
+  describe("Filters by _updatedAt.", () => {
+    const posts: MinPostsQueryResult = [
+      { ...template, _updatedAt: "2000-01-01T00:00:00Z" },
+      { ...template, _updatedAt: "2000-01-02T00:00:00Z" },
+      { ...template, _updatedAt: "2000-01-03T00:00:00Z" },
+      { ...template, _updatedAt: "2000-01-04T00:00:00Z" },
+    ];
+
+    test("Filters by updatedBefore.", () => {
+      expect(
+        filterPosts(posts, { updatedBefore: "1999-12-31T23:59:59Z" })
+      ).toEqual([]);
+      expect(
+        filterPosts(posts, { updatedBefore: "2010-01-01T00:00:00Z" })
+      ).toEqual(posts);
+      expect(
+        filterPosts(posts, { updatedBefore: "2000-01-03T00:00:00Z" })
+      ).toEqual([posts[0], posts[1]]);
+    });
+
+    test("Filters by updatedAfter.", () => {
+      expect(
+        filterPosts(posts, { updatedAfter: "2000-01-01T00:00:00Z" })
+      ).toEqual([posts[1], posts[2], posts[3]]);
+      expect(
+        filterPosts(posts, { updatedAfter: "2010-01-01T00:00:00Z" })
+      ).toEqual([]);
+      expect(
+        filterPosts(posts, { updatedAfter: "1999-12-31T23:59:59Z" })
+      ).toEqual(posts);
+    });
   });
 });
