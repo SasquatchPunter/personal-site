@@ -1,5 +1,13 @@
 export function formatDateString(
   date: string,
+  options?: { format: "string" }
+): string;
+export function formatDateString(
+  date: string,
+  options: { format: "millis" | "seconds" }
+): number;
+export function formatDateString(
+  date: string,
   options?: { format: "string" | "millis" | "seconds" }
 ) {
   switch (options?.format) {
