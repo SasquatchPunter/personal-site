@@ -1,6 +1,16 @@
 import { groq } from "next-sanity";
 
 // Blog
+export const minPostsQuery = groq`
+    *[_type == "blogPost"]{
+        _id,
+        _createdAt,
+        _updatedAt,
+        title,
+        "tags": tags[]->key,
+        "slug": slug.current
+    }   
+`;
 export const postsPathsQuery = groq`
     *[ _type == "blogPost" && defined(slug.current) ][] { slug }
 `;
