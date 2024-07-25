@@ -6,11 +6,11 @@ import type {
   MinPostsQueryResult,
 } from "../types";
 
-export const getPostsPaths = async (): Promise<PostsPathsQueryResult> => {
-  return await client.fetch(postsPathsQuery);
+export const getPostsPaths = (): Promise<PostsPathsQueryResult> => {
+  return client.fetch(postsPathsQuery);
 };
 
-export const getPostBySlug = async (
+export const getPostBySlug = (
   slug: string
 ): Promise<PostFromSlugQueryResult> => {
   return client.fetch(postFromSlugQuery, { slug });
