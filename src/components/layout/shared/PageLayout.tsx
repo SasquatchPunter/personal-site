@@ -6,8 +6,9 @@ import MainNav from "@/src/components/layout/shared/MainNav";
 interface Props {
   title?: string;
   children?: ReactNode;
+  hasNav?: boolean;
 }
-export default function PageLayout({ title, children }: Props) {
+export default function PageLayout({ title, children, hasNav = true }: Props) {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ export default function PageLayout({ title, children }: Props) {
         />
         <link rel="manifest" href="/manifest.json" />
       </Head>
-      <MainNav />
+      {hasNav ? <MainNav /> : null}
       {children}
     </>
   );
