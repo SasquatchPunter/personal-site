@@ -164,39 +164,46 @@ describe("filterPosts()", () => {
       { ...template, tags: ["programming"] },
       { ...template, tags: [] },
       { ...template, tags: ["programming", "cms"] },
+      { ...template, tags: ["beginner"] },
     ];
+
+    test("Returns all when filters aren't set", () => {
+      expect(filterPosts(posts, {})).toEqual(posts);
+    });
 
     test("Filters by included tags.", () => {
       expect(filterPosts(posts, { includeTags: ["programming"] })).toEqual([
         posts[0],
         posts[2],
       ]);
-      expect(filterPosts(posts, { includeTags: [] })).toEqual(posts);
+      expect(filterPosts(posts, { includeTags: ["cms", "beginner"] })).toEqual([
+        posts[2],
+        posts[3],
+      ]);
+      expect(filterPosts(posts, { includeTags: [] })).toEqual([]);
       expect(filterPosts(posts, { includeTags: ["fake tag"] })).toEqual([]);
-      expect(filterPosts(posts, { includeTags: ["cms"] })).toEqual([posts[2]]);
     });
 
     test("Filters by excluded tags.", () => {
       expect(filterPosts(posts, { excludeTags: ["programming"] })).toEqual([
         posts[1],
+        posts[3],
       ]);
-      expect(filterPosts(posts, { excludeTags: [] })).toEqual(posts);
-      expect(filterPosts(posts, { excludeTags: ["fake tag"] }));
-      expect(filterPosts(posts, { excludeTags: ["cms"] })).toEqual([
+      expect(filterPosts(posts, { excludeTags: ["cms", "beginner"] })).toEqual([
         posts[0],
         posts[1],
       ]);
+      expect(filterPosts(posts, { excludeTags: [] })).toEqual(posts);
+      expect(filterPosts(posts, { excludeTags: ["fake tag"] })).toEqual(posts);
     });
-
-    test("Filters by included and excluded tags.", () => {});
   });
 
   describe("Filters by _createdAt.", () => {
     const posts: MinPostsQueryResult = [
-      { ...template, _createdAt: "2000-01-01T00:00:00Z" },
-      { ...template, _createdAt: "2000-01-02T00:00:00Z" },
-      { ...template, _createdAt: "2000-01-03T00:00:00Z" },
-      { ...template, _createdAt: "2000-01-04T00:00:00Z" },
+      { ...template, _id: "1", _createdAt: "2000-01-01T00:00:00Z" },
+      { ...template, _id: "2", _createdAt: "2000-01-02T00:00:00Z" },
+      { ...template, _id: "3", _createdAt: "2000-01-03T00:00:00Z" },
+      { ...template, _id: "4", _createdAt: "2000-01-04T00:00:00Z" },
     ];
 
     test("Filters by createdBefore.", () => {
@@ -226,10 +233,10 @@ describe("filterPosts()", () => {
 
   describe("Filters by _updatedAt.", () => {
     const posts: MinPostsQueryResult = [
-      { ...template, _updatedAt: "2000-01-01T00:00:00Z" },
-      { ...template, _updatedAt: "2000-01-02T00:00:00Z" },
-      { ...template, _updatedAt: "2000-01-03T00:00:00Z" },
-      { ...template, _updatedAt: "2000-01-04T00:00:00Z" },
+      { ...template, _id: "1", _updatedAt: "2000-01-01T00:00:00Z" },
+      { ...template, _id: "2", _updatedAt: "2000-01-02T00:00:00Z" },
+      { ...template, _id: "3", _updatedAt: "2000-01-03T00:00:00Z" },
+      { ...template, _id: "4", _updatedAt: "2000-01-04T00:00:00Z" },
     ];
 
     test("Filters by updatedBefore.", () => {
