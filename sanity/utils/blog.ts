@@ -1,4 +1,5 @@
 import type { MinPostsQueryResult } from "@/sanity/types";
+import type { BlogFilterState } from "@/sanity/hooks/useBlogFilter";
 
 import { compareDateStrings } from "@/src/utils/date";
 
@@ -62,21 +63,6 @@ export function tocTreeFromAnchors(
   return generate([...anchors], depth || maxLevel, minLevel);
 }
 
-export type BlogPostFilter = {
-  /** Tags to include when filtering. An empty array allows only posts that are tagged. */
-  includeTags?: string[];
-  /** Tags to exclude when filtering. */
-  excludeTags?: string[];
-  /** Posts created after this date are filtered out. */
-  createdBefore?: string;
-  /** Posts created before this date are filtered out. */
-  createdAfter?: string;
-  /** Posts updated after this date are filterd out. */
-  updatedBefore?: string;
-  /** Posts updated before this date are filtered out. */
-  updatedAfter?: string;
-};
-
 /**
  * Filters a list of minified posts using a filter object.
  * @param posts List of posts to filter
@@ -84,7 +70,7 @@ export type BlogPostFilter = {
  */
 export function filterPosts(
   posts: MinPostsQueryResult,
-  filter: BlogPostFilter
+  filter: BlogFilterState
 ): MinPostsQueryResult {
   return posts.filter((post) => {
     if (filter.includeTags !== undefined) {

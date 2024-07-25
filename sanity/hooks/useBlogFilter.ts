@@ -1,4 +1,3 @@
-import type { BlogPostFilter } from "@/sanity/utils/blog";
 import type { MinPostsQueryResult } from "../types";
 import type { Dispatch } from "react";
 
@@ -111,7 +110,10 @@ function filterDispatchers(dispatch: Dispatch<Action>) {
   };
 }
 
-function filterReducer(filter: BlogPostFilter, action: Action): BlogPostFilter {
+function filterReducer(
+  filter: BlogFilterState,
+  action: Action
+): BlogFilterState {
   const { type, payload } = action;
 
   let includeTags: string[] = filter.includeTags ? [...filter.includeTags] : [];
@@ -183,6 +185,23 @@ function filterReducer(filter: BlogPostFilter, action: Action): BlogPostFilter {
   }
 }
 
+export type BlogFilterOutput = MinPostsQueryResult;
+export type BlogFilterState = {
+  /** Tags to include when filtering. An empty array allows only posts that are tagged. */
+  includeTags?: string[];
+  /** Tags to exclude when filtering. */
+  excludeTags?: string[];
+  /** Posts created after this date are filtered out. */
+  createdBefore?: string;
+  /** Posts created before this date are filtered out. */
+  createdAfter?: string;
+  /** Posts updated after this date are filterd out. */
+  updatedBefore?: string;
+  /** Posts updated before this date are filtered out. */
+  updatedAfter?: string;
+};
+export type BlogFilterActions = ReturnType<typeof filterDispatchers>;
+
 export const ACTION_TYPE_UNSUPPORTED_ERROR =
   "An unsupported filter action was used!";
 
@@ -194,8 +213,8 @@ export const ACTION_TYPE_UNSUPPORTED_ERROR =
  */
 export default function useBlogFilter(
   posts: MinPostsQueryResult,
-  initialFilter: BlogPostFilter = {}
-): [MinPostsQueryResult, ReturnType<typeof filterDispatchers>, BlogPostFilter] {
+  initialFilter: BlogFilterState = {}
+): [BlogFilterOutput, BlogFilterActions, BlogFilterState] {
   const [filterState, dispatch] = useReducer(filterReducer, initialFilter);
 
   const filteredPosts = useMemo(() => {

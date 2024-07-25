@@ -1,10 +1,11 @@
 /**
  * @jest-environment jsdom
  */
+import type { BlogFilterState } from "../useBlogFilter";
+import type { MinPostsQueryResult } from "@/sanity/types";
+
 import { act, renderHook } from "@testing-library/react";
 import useBlogFilter from "../useBlogFilter";
-import { BlogPostFilter } from "@/sanity/utils/blog";
-import { MinPostsQueryResult } from "@/sanity/types";
 
 describe("useBlogFilter()", () => {
   let hook = renderHook(() => useBlogFilter([]));
@@ -19,7 +20,7 @@ describe("useBlogFilter()", () => {
   });
 
   test("Should initialize with initial filter object.", () => {
-    const initialFilter: BlogPostFilter = {
+    const initialFilter: BlogFilterState = {
       includeTags: [],
       excludeTags: ["a", "b"],
       createdAfter: "2020",
