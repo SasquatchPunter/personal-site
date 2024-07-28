@@ -5,10 +5,13 @@ import type { BlogPostPageProps } from "@/src/pages/blog/[slug]";
 import BlogPostHeader from "./BlogPostHeader";
 import BlogPostMain from "./BlogPostMain";
 import BlogPostFooter from "./BlogPostFooter";
-import BlogPostTags from "./BlogPostTags";
 import BlogPostExcerpt from "./BlogPostExcerpt";
+import BlogPostTagList from "./BlogPostTagList";
 
-export default function BlogPost({ post }: BlogPostPageProps) {
+interface Props {
+  post: BlogPostPageProps["post"];
+}
+export default function BlogPost({ post }: Props) {
   return (
     <>
       <BlogPostHeader
@@ -18,7 +21,7 @@ export default function BlogPost({ post }: BlogPostPageProps) {
         updatedAt={post._updatedAt}
       />
       <section className="flex flex-col gap-2">
-        <BlogPostTags tags={post.tags} />
+        <BlogPostTagList tags={post.tags} />
         <BlogPostExcerpt excerpt={post.excerpt} />
       </section>
       <BlogPostMain body={post.body as PortableTextBlock[]} toc={post.toc} />
