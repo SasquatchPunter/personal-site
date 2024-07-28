@@ -12,7 +12,7 @@ export default function PageLayout({ title, children, hasNav = true }: Props) {
   return (
     <>
       <Head>
-        <title>Jeremy Elliott | {title || "Page"}</title>
+        <title>{`Jeremy Elliott | ${title || "Page"}`}</title>
 
         <link rel="icon" href="/icons/favicon-32.png" sizes="48x48" />
         <link
