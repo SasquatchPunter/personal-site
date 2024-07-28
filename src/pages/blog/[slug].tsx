@@ -3,6 +3,7 @@ import type { Anchors } from "@/sanity/utils/blog";
 
 import { getPostsPaths, getPostBySlug } from "@/sanity/lib/fetch";
 import { tocTreeFromAnchors } from "@/sanity/utils/blog";
+
 import BlogPost from "@/src/components/blog/BlogPost";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
 
@@ -23,16 +24,6 @@ export async function getStaticProps({ params }: { params: any }) {
   };
 }
 
-export type BlogPostPageProps = InferGetStaticPropsType<typeof getStaticProps>;
-
-export default function BlogPostPage({ post }: BlogPostPageProps) {
-  return (
-    <PageLayout title={post.title}>
-      <BlogPost post={post} />
-    </PageLayout>
-  );
-}
-
 export async function getStaticPaths() {
   const data = await getPostsPaths();
   const paths = data.map(({ slug }) => ({
@@ -45,4 +36,14 @@ export async function getStaticPaths() {
     paths: [...paths, { params: { slug: "404" } }],
     fallback: false,
   };
+}
+
+export type BlogPostPageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+export default function BlogPostPage({ post }: BlogPostPageProps) {
+  return (
+    <PageLayout title={post.title}>
+      <BlogPost post={post} />
+    </PageLayout>
+  );
 }
