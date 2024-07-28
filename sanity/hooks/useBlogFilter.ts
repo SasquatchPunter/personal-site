@@ -206,8 +206,7 @@ export const ACTION_TYPE_UNSUPPORTED_ERROR =
   "An unsupported filter action was used!";
 
 /**
- *
- * @param posts Pass in original unfiltered posts
+ * @param posts Original unfiltered posts
  * @param initialFilter Optional filter object to initialize to
  * @returns An array containing the filtered posts, filter actions, and the filter state object.
  */
