@@ -42,27 +42,84 @@ describe("useBlogFilter()", () => {
         hook = renderHook(() => useBlogFilter([]));
       });
 
-      test("add", () => {
-        act(() => {
-          actions()[f].add("a", "c", "b");
+      describe("add", () => {
+        beforeEach(() => {
+          hook = renderHook(() => useBlogFilter([]));
         });
-        expect(filter()[f]).toEqual(["a", "b", "c"]);
+
+        test("Can add single tag", () => {
+          act(() => {
+            actions()[f].add("a");
+          });
+          expect(filter()[f]).toEqual(["a"]);
+        });
+
+        test("Can add multiple tags", () => {
+          act(() => {
+            actions()[f].add("a", "b", "c");
+          });
+          expect(filter()[f]).toEqual(["a", "b", "c"]);
+        });
+
+        test("Duplicate tags are filtered", () => {
+          act(() => {
+            actions()[f].add("a", "b");
+            actions()[f].add("b");
+          });
+          expect(filter()[f]).toEqual(["a", "b"]);
+        });
       });
 
-      test("remove", () => {
-        act(() => {
-          actions()[f].add("a");
-          actions()[f].remove("a");
+      describe("remove", () => {
+        beforeEach(() => {
+          hook = renderHook(() => useBlogFilter([]));
         });
-        expect(filter()[f]).toEqual([]);
+
+        test("Can remove single tag", () => {
+          act(() => {
+            actions()[f].add("a");
+            actions()[f].remove("a");
+          });
+          expect(filter()[f]).toEqual([]);
+        });
+
+        test("Can add multiple tags", () => {
+          act(() => {
+            actions()[f].add("a", "b", "c");
+            actions()[f].remove("a", "b");
+          });
+          expect(filter()[f]).toEqual(["c"]);
+        });
       });
 
-      test("unset", () => {
-        act(() => {
-          actions()[f].add("a");
-          actions()[f].unset();
+      describe("unset", () => {
+        beforeEach(() => {
+          hook = renderHook(() => useBlogFilter([]));
         });
-        expect(filter()[f]).toBe(undefined);
+
+        test("Can be called on uninitialized filter", () => {
+          act(() => {
+            actions()[f].unset();
+          });
+          expect(filter()[f]).toBeUndefined();
+        });
+
+        test("Can be called on array with elements", () => {
+          act(() => {
+            actions()[f].add("a", "b");
+            actions()[f].unset();
+          });
+          expect(filter()[f]).toBeUndefined();
+        });
+
+        test("Can be called on empty array", () => {
+          act(() => {
+            actions()[f].add("a");
+            actions()[f].remove("a");
+            actions()[f].unset();
+          });
+          expect(filter()[f]).toBeUndefined();
+        });
       });
     });
 
