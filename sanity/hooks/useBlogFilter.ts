@@ -126,7 +126,7 @@ function filterReducer(
           includeTags.push(tag);
         }
       }
-      return { ...filter, includeTags: includeTags.sort() };
+      return { ...filter, includeTags };
 
     case ActionType.ADD_EXCLUDED_TAGS:
       for (const tag of payload) {
@@ -134,7 +134,7 @@ function filterReducer(
           excludeTags.push(tag);
         }
       }
-      return { ...filter, excludeTags: excludeTags.sort() };
+      return { ...filter, excludeTags };
 
     case ActionType.REMOVE_INCLUDED_TAGS:
       includeTags = includeTags.filter((tag) => !payload.includes(tag));
