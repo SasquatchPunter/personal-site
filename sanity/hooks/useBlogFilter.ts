@@ -187,9 +187,9 @@ function filterReducer(
 
 export type BlogFilterOutput = MinPostsQueryResult;
 export type BlogFilterState = {
-  /** Tags to include when filtering. An empty array allows only posts that are tagged. */
+  /** Tags to include when filtering. An empty array excludes all posts. */
   includeTags?: string[];
-  /** Tags to exclude when filtering. */
+  /** Tags to exclude when filtering. An empty array includes all posts. */
   excludeTags?: string[];
   /** Posts created after this date are filtered out. */
   createdBefore?: string;
