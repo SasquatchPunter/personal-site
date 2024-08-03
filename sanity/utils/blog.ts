@@ -124,3 +124,23 @@ export function filterPosts(
     return true;
   });
 }
+
+/**
+ * Extracts a tag list from an array of minified blog posts
+ * @param posts Input posts array
+ * @returns Sorted array of tags extracted from the input.
+ */
+export function extractTags(posts: MinPostsQueryResult) {
+  return [
+    ...posts
+      .reduce((acc, post) => {
+        for (const tag of post.tags || []) {
+          if (tag) {
+            acc.add(tag.toLowerCase());
+          }
+        }
+        return acc;
+      }, new Set<string>())
+      .values(),
+  ].sort();
+}
