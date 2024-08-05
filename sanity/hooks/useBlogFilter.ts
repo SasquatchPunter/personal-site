@@ -15,10 +15,12 @@ enum ActionType {
   SET_CREATED_AFTER,
   SET_UPDATED_BEFORE,
   SET_UPDATED_AFTER,
+  SET_ALL,
   UNSET_CREATED_BEFORE,
   UNSET_CREATED_AFTER,
   UNSET_UPDATED_BEFORE,
   UNSET_UPDATED_AFTER,
+  UNSET_ALL,
 }
 
 type Action =
@@ -31,10 +33,6 @@ type Action =
       payload: string[];
     }
   | {
-      type: ActionType.UNSET_INCLUDED_TAGS | ActionType.UNSET_EXCLUDED_TAGS;
-      payload?: any;
-    }
-  | {
       type:
         | ActionType.SET_CREATED_BEFORE
         | ActionType.SET_CREATED_AFTER
@@ -44,12 +42,16 @@ type Action =
     }
   | {
       type:
+        | ActionType.UNSET_INCLUDED_TAGS
+        | ActionType.UNSET_EXCLUDED_TAGS
         | ActionType.UNSET_CREATED_BEFORE
         | ActionType.UNSET_CREATED_AFTER
         | ActionType.UNSET_UPDATED_BEFORE
-        | ActionType.UNSET_UPDATED_AFTER;
+        | ActionType.UNSET_UPDATED_AFTER
+        | ActionType.UNSET_ALL;
       payload?: any;
-    };
+    }
+  | { type: ActionType.SET_ALL; payload: BlogFilterState };
 
 function filterDispatchers(dispatch: Dispatch<Action>) {
   return {
@@ -105,6 +107,14 @@ function filterDispatchers(dispatch: Dispatch<Action>) {
       },
       unset() {
         dispatch({ type: ActionType.UNSET_UPDATED_AFTER });
+      },
+    },
+    all: {
+      set(state: BlogFilterState) {
+        dispatch({ type: ActionType.SET_ALL, payload: state });
+      },
+      unset() {
+        dispatch({ type: ActionType.UNSET_ALL });
       },
     },
   };
@@ -164,6 +174,9 @@ function filterReducer(
     case ActionType.SET_UPDATED_AFTER:
       return { ...filter, updatedAfter: payload };
 
+    case ActionType.SET_ALL:
+      return { ...payload };
+
     case ActionType.UNSET_CREATED_BEFORE:
       delete filter.createdBefore;
       return { ...filter };
@@ -177,6 +190,15 @@ function filterReducer(
       return { ...filter };
 
     case ActionType.UNSET_UPDATED_AFTER:
+      delete filter.updatedAfter;
+      return { ...filter };
+
+    case ActionType.UNSET_ALL:
+      delete filter.includeTags;
+      delete filter.excludeTags;
+      delete filter.createdBefore;
+      delete filter.createdAfter;
+      delete filter.updatedBefore;
       delete filter.updatedAfter;
       return { ...filter };
 
@@ -206,6 +228,7 @@ export const ACTION_TYPE_UNSUPPORTED_ERROR =
   "An unsupported filter action was used!";
 
 /**
+ * Hook that maintains filter state for the blog filter and provides the filtered list of posts.
  * @param posts Original unfiltered posts
  * @param initialFilter Optional filter object to initialize to
  * @returns An array containing the filtered posts, filter actions, and the filter state object.

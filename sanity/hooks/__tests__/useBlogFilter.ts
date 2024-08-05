@@ -153,6 +153,35 @@ describe("useBlogFilter()", () => {
         expect(filter()[f]).toBe(undefined);
       });
     });
+
+    describe("all", () => {
+      beforeEach(() => {
+        hook = renderHook(() => useBlogFilter([]));
+      });
+
+      test("set", () => {
+        const filterState: BlogFilterState = {
+          includeTags: ["a"],
+          excludeTags: ["b"],
+          createdBefore: "2021",
+          createdAfter: "2020",
+          updatedBefore: "2022",
+          updatedAfter: "2020",
+        };
+        act(() => {
+          actions().all.set(filterState);
+        });
+        expect(filter()).toEqual(filterState);
+      });
+
+      test("unset", () => {
+        act(() => {
+          actions().all.set({ includeTags: ["a", "b"] });
+          actions().all.unset();
+        });
+        expect(filter()).toEqual({});
+      });
+    });
   });
 
   describe("Filters posts", () => {
@@ -230,6 +259,18 @@ describe("useBlogFilter()", () => {
       } else if (f === "updatedAfter") {
         expect(posts()).toEqual([mockPosts[2], mockPosts[3]]);
       }
+    });
+
+    describe("Filters edges cases.", () => {
+      test("Tags included in both includeTags and excludeTags are filtered.", () => {
+        hook = renderHook(() =>
+          useBlogFilter([...mockPosts], {
+            includeTags: ["a", "b"],
+            excludeTags: ["b"],
+          })
+        );
+        expect(posts()).toEqual([]);
+      });
     });
   });
 });
