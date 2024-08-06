@@ -180,7 +180,7 @@ describe("filterPosts()", () => {
         posts[2],
         posts[3],
       ]);
-      expect(filterPosts(posts, { includeTags: [] })).toEqual([]);
+      expect(filterPosts(posts, { includeTags: [] })).toEqual(posts);
       expect(filterPosts(posts, { includeTags: ["fake tag"] })).toEqual([]);
     });
 

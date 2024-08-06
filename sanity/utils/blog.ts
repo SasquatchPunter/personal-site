@@ -73,9 +73,8 @@ export function filterPosts(
   filter: BlogFilterState
 ): MinPostsQueryResult {
   return posts.filter((post) => {
-    if (filter.includeTags !== undefined) {
+    if (filter.includeTags !== undefined && filter.includeTags.length !== 0) {
       if (
-        filter.includeTags.length === 0 ||
         post.tags === null ||
         post.tags.length === 0 ||
         !filter.includeTags.some((tag) => post.tags!.includes(tag))
@@ -84,7 +83,7 @@ export function filterPosts(
       }
     }
 
-    if (filter.excludeTags !== undefined) {
+    if (filter.excludeTags !== undefined && filter.excludeTags.length !== 0) {
       if (
         post.tags !== null &&
         filter.excludeTags.some((tag) => post.tags!.includes(tag))
