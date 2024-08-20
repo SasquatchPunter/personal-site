@@ -8,7 +8,7 @@ interface Props {
 export default function Footer({ socialLinks }: Props) {
   return (
     <footer className="p-4">
-      <section className="text-center">
+      <section className="text-center text-base-1 font-semibold">
         <p>Check out my socials!</p>
         <SocialLinks socialLinks={socialLinks} />
       </section>
