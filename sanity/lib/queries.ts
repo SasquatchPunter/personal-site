@@ -1,5 +1,13 @@
 import { groq } from "next-sanity";
 
+// Social Links
+export const siteSettingsQuery = groq`
+    *[_type == "siteSettings" && _id == "siteSettings"][0]{
+        siteTitle,
+        socialLinks
+    }
+`;
+
 // Blog
 export const minPostsQuery = groq`
     *[_type == "blogPost"]{

@@ -1,5 +1,7 @@
 import { type SchemaTypeDefinition } from "sanity";
 
+import siteSettings from "./schemaTypes/siteSettings";
+
 import blogBody from "./schemaTypes/blogBody";
 import blogPost from "./schemaTypes/blogPost";
 import blogTag from "./schemaTypes/blogTag";
@@ -9,5 +11,13 @@ import youtube from "./schemaTypes/shared/youtube";
 import sectionRule from "./schemaTypes/shared/sectionRule";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blogBody, blogPost, blogTag, defaultImage, youtube, sectionRule],
+  types: [
+    siteSettings,
+    blogBody,
+    blogPost,
+    blogTag,
+    defaultImage,
+    youtube,
+    sectionRule,
+  ],
 };

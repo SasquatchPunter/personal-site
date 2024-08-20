@@ -1,9 +1,9 @@
 import { StructureBuilder } from "sanity/structure";
-import { BookIcon, TagsIcon } from "@sanity/icons";
+import { BookIcon, TagsIcon, CogIcon } from "@sanity/icons";
 
 const BlogContent = (S: StructureBuilder) => {
   return S.listItem()
-    .title("Blog Content")
+    .title("Blog")
     .child(
       S.list()
         .title("Blog Content")
@@ -20,8 +20,15 @@ const BlogContent = (S: StructureBuilder) => {
     );
 };
 
-export const structure = (S: StructureBuilder) => {
+const SiteSettings = (S: StructureBuilder) => {
+  return S.listItem()
+    .title("Site Settings")
+    .icon(CogIcon)
+    .child(S.document().schemaType("siteSettings").documentId("siteSettings"));
+};
+
+export default (S: StructureBuilder) => {
   return S.list()
     .title("Content")
-    .items([BlogContent(S)]);
+    .items([S.divider(), SiteSettings(S), S.divider(), BlogContent(S)]);
 };

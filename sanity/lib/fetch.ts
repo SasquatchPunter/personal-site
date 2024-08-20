@@ -1,21 +1,32 @@
-import { client } from "./client";
-import { postsPathsQuery, postFromSlugQuery, minPostsQuery } from "./queries";
 import type {
   PostsPathsQueryResult,
   PostFromSlugQueryResult,
   MinPostsQueryResult,
+  SiteSettingsQueryResult,
 } from "../types";
 
-export const getPostsPaths = (): Promise<PostsPathsQueryResult> => {
-  return client.fetch(postsPathsQuery);
-};
+import { client } from "./client";
+import {
+  postsPathsQuery,
+  postFromSlugQuery,
+  minPostsQuery,
+  siteSettingsQuery,
+} from "./queries";
 
-export const getPostBySlug = (
-  slug: string
-): Promise<PostFromSlugQueryResult> => {
-  return client.fetch(postFromSlugQuery, { slug });
-};
+export function getPostsPaths() {
+  return client.fetch<PostsPathsQueryResult>(postsPathsQuery);
+}
+export function getPostBySlug(slug: string) {
+  return client.fetch<PostFromSlugQueryResult>(postFromSlugQuery, { slug });
+}
+export function getMinPosts() {
+  return client.fetch<MinPostsQueryResult>(minPostsQuery);
+}
+export function getSiteSettings() {
+  return client.fetch<SiteSettingsQueryResult>(siteSettingsQuery);
+}
 
-export const getMinPosts = (): Promise<MinPostsQueryResult> => {
-  return client.fetch(minPostsQuery);
-};
+export type GetPostsPaths = ReturnType<typeof getPostsPaths>;
+export type GetPostBySlug = ReturnType<typeof getPostBySlug>;
+export type GetMinPosts = ReturnType<typeof getMinPosts>;
+export type GetSiteSettings = ReturnType<typeof getSiteSettings>;
