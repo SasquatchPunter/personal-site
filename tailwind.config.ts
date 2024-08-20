@@ -19,6 +19,7 @@ const config: Config = {
       colors: {
         base: {
           1: "#adffb0",
+          2: "#17282d",
         },
       },
       dropShadow: {
