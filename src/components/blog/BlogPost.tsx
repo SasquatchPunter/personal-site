@@ -4,7 +4,6 @@ import type { BlogPostPageProps } from "@/src/pages/blog/[slug]";
 
 import BlogPostHeader from "./BlogPostHeader";
 import BlogPostMain from "./BlogPostMain";
-import BlogPostFooter from "./BlogPostFooter";
 import BlogPostExcerpt from "./BlogPostExcerpt";
 import BlogPostTagList from "./BlogPostTagList";
 
@@ -25,7 +24,6 @@ export default function BlogPost({ post }: Props) {
         <BlogPostExcerpt excerpt={post.excerpt} />
       </section>
       <BlogPostMain body={post.body as PortableTextBlock[]} toc={post.toc} />
-      <BlogPostFooter />
     </>
   );
 }
