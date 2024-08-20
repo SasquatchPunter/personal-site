@@ -4,20 +4,26 @@ import Head from "next/head";
 import MainNav from "@/src/components/layout/shared/MainNav";
 
 interface Props {
+  siteTitle?: string;
   title?: string;
   children?: ReactNode;
   hasNav?: boolean;
 }
-export default function PageLayout({ title, children, hasNav = true }: Props) {
+export default function PageLayout({
+  siteTitle = "jelliott.dev",
+  title = "Page",
+  children,
+  hasNav = true,
+}: Props) {
   return (
     <>
       <Head>
-        <title>{`Jeremy Elliott | ${title || "Page"}`}</title>
+        <title>{`${siteTitle} | ${title}`}</title>
 
         <link rel="icon" href="/icons/favicon-32.png" sizes="48x48" />
         <link
           rel="icon"
-          href="/icons/favicon.min.svg"
+          href="/icons/favicon.svg"
           sizes="any"
           type="image/svg+xml"
         />
