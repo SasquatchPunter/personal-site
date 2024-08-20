@@ -94,6 +94,7 @@ export function filterPosts(
 
     if (
       filter.createdBefore != undefined &&
+      filter.createdBefore.length > 0 &&
       !(compareDateStrings(post._createdAt, filter.createdBefore) < 0)
     ) {
       return false;
@@ -101,6 +102,7 @@ export function filterPosts(
 
     if (
       filter.createdAfter != undefined &&
+      filter.createdAfter.length > 0 &&
       !(compareDateStrings(post._createdAt, filter.createdAfter) > 0)
     ) {
       return false;
@@ -108,6 +110,7 @@ export function filterPosts(
 
     if (
       filter.updatedBefore != undefined &&
+      filter.updatedBefore.length > 0 &&
       !(compareDateStrings(post._updatedAt, filter.updatedBefore) < 0)
     ) {
       return false;
@@ -115,6 +118,7 @@ export function filterPosts(
 
     if (
       filter.updatedAfter != undefined &&
+      filter.updatedAfter.length > 0 &&
       !(compareDateStrings(post._updatedAt, filter.updatedAfter) > 0)
     ) {
       return false;
