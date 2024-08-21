@@ -44,6 +44,12 @@ export default defineType({
           type: "url",
           placeholder: "LinkedIn Profile",
         },
+        {
+          title: "Codepen",
+          name: "codepen",
+          type: "url",
+          placeholder: "Codepen Profile",
+        },
       ],
       validation(rule) {
         return rule.required();

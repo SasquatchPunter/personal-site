@@ -3,6 +3,7 @@ import type { GetSiteSettings } from "@/sanity/lib/fetch";
 import Email from "@/src/assets/icons/socialLinks/email.svg";
 import LinkedIn from "@/src/assets/icons/socialLinks/linkedin.svg";
 import Github from "@/src/assets/icons/socialLinks/github.svg";
+import Codepen from "@/src/assets/icons/socialLinks/codepen.svg";
 import Default from "@/src/assets/icons/socialLinks/default.svg";
 
 interface SocialLinkAnchorProps {
@@ -47,6 +48,12 @@ function SocialLink({ type, address }: SocialLinkProps) {
       return (
         <SocialLinkAnchor href={href} title="Github">
           <Github className="*:fill-base-1" />
+        </SocialLinkAnchor>
+      );
+    case "codepen":
+      return (
+        <SocialLinkAnchor href={href} title="Codepen">
+          <Codepen className="*:fill-base-1" />
         </SocialLinkAnchor>
       );
     default:
