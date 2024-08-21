@@ -10,7 +10,7 @@ import { tocTreeFromAnchors } from "@/sanity/utils/blog";
 
 import BlogPost from "@/src/components/blog/BlogPost";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
-import Footer from "@/src/components/Footer";
+import Footer from "@/src/components/layout/shared/Footer";
 
 export async function getStaticProps({ params }: { params: any }) {
   const post = await getPostBySlug(params.slug);

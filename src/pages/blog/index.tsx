@@ -5,7 +5,7 @@ import { extractTags } from "@/sanity/utils/blog";
 
 import PageLayout from "@/src/components/layout/shared/PageLayout";
 import BlogList from "@/src/components/blog/BlogList";
-import Footer from "@/src/components/Footer";
+import Footer from "@/src/components/layout/shared/Footer";
 
 export async function getStaticProps() {
   const siteSettings = await getSiteSettings();

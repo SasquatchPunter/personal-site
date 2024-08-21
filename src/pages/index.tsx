@@ -3,7 +3,8 @@ import type { InferGetStaticPropsType } from "next";
 import { getSiteSettings } from "@/sanity/lib/fetch";
 
 import PageLayout from "@/src/components/layout/shared/PageLayout";
-import Footer from "@/src/components/Footer";
+import Footer from "@/src/components/layout/shared/Footer";
+import MainHeading from "../components/MainHeading";
 
 export async function getStaticProps() {
   const siteSettings = await getSiteSettings();
