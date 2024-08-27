@@ -6,6 +6,9 @@ import Github from "@/src/assets/icons/socialLinks/github.svg";
 import Codepen from "@/src/assets/icons/socialLinks/codepen.svg";
 import Default from "@/src/assets/icons/socialLinks/default.svg";
 
+type SocialLinks = NonNullable<Awaited<GetSiteSettings>>["socialLinks"];
+type SocialLinkKey = keyof NonNullable<SocialLinks>;
+
 interface SocialLinkAnchorProps {
   children: React.ReactNode;
   href: string;
@@ -25,7 +28,7 @@ function SocialLinkAnchor({ children, href, title }: SocialLinkAnchorProps) {
 }
 
 interface SocialLinkProps {
-  type: string;
+  type: SocialLinkKey;
   address: string;
 }
 function SocialLink({ type, address }: SocialLinkProps) {
@@ -66,17 +69,19 @@ function SocialLink({ type, address }: SocialLinkProps) {
 }
 
 interface Props {
-  socialLinks: NonNullable<Awaited<GetSiteSettings>>["socialLinks"];
+  socialLinks: SocialLinks;
 }
 export default function SocialLinks({ socialLinks }: Props) {
   return (
     <ul className="flex gap-8 justify-center mt-4">
       {socialLinks
-        ? Object.entries(socialLinks).map(([type, address]) => (
-            <li key={type}>
-              <SocialLink type={type} address={address} />
-            </li>
-          ))
+        ? (Object.entries(socialLinks) as [SocialLinkKey, string][]).map(
+            ([type, address]) => (
+              <li key={type}>
+                <SocialLink type={type} address={address} />
+              </li>
+            )
+          )
         : null}
     </ul>
   );
