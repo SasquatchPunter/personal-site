@@ -1,0 +1,8 @@
+@tailwind components;
+
+@layer components {
+  .main-heading {
+    @apply bg-clip-text text-transparent bg-gradient-to-b from-base-1 via-base-1 to-base-2 bg-repeat-x duration-300 bg-bottom hover:bg-top;
+    background-size: auto 200%;
+  }
+}
