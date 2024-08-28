@@ -16,6 +16,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gradientColorStopPositions: {
+        "200%": "200%",
+      },
       colors: {
         base: {
           1: "#adffb0",
