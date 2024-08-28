@@ -17,9 +17,8 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/src/*": [
-        "./src/*"
-      ],
+      "@/src/*": ["./src/*"],
+      "@/lib/*": ["./lib/*"],
       "@/sanity.config": ["./sanity.config"],
       "@/sanity/*": ["./sanity/*"]
     },
