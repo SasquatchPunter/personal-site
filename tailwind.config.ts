@@ -15,6 +15,20 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    borderWidth({ theme }) {
+      const borderWidth: { [key: string]: string } = {};
+      const spacing = theme("spacing");
+      for (const [key, value] of Object.entries<string>(spacing)) {
+        borderWidth[key] = value;
+      }
+      return {
+        ...borderWidth,
+        px: "1px",
+        "2px": "2px",
+        "3px": "3px",
+        "4px": "4px",
+      };
+    },
     extend: {
       gradientColorStopPositions: {
         "200%": "200%",
