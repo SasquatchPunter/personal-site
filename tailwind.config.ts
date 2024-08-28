@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 import type { PluginCreator } from "tailwindcss/types/config";
 
+import borderWidth from "./lib/tailwind/plugins/borderWidth";
+
 const addVariants: PluginCreator = ({ addVariant }) => {
   addVariant("svg", "& > svg");
   addVariant("svg_*", "& > svg *");
@@ -15,21 +17,16 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    borderWidth({ theme }) {
-      const borderWidth: { [key: string]: string } = {};
-      const spacing = theme("spacing");
-      for (const [key, value] of Object.entries<string>(spacing)) {
-        borderWidth[key] = value;
-      }
-      return {
-        ...borderWidth,
-        px: "1px",
+    borderWidth,
+    extend: {
+      spacing: {
+        "0px": "0px",
+        "1px": "1px",
         "2px": "2px",
         "3px": "3px",
         "4px": "4px",
-      };
-    },
-    extend: {
+        "5px": "5px",
+      },
       gradientColorStopPositions: {
         "200%": "200%",
       },
@@ -67,4 +64,5 @@ const config: Config = {
   },
   plugins: [addVariants],
 };
+
 export default config;
