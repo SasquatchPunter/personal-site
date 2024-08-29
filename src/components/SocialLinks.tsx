@@ -6,6 +6,8 @@ import Github from "@/src/assets/icons/socialLinks/github.svg";
 import Codepen from "@/src/assets/icons/socialLinks/codepen.svg";
 import Default from "@/src/assets/icons/socialLinks/default.svg";
 
+import CursorHover from "@/src/components/CursorHover";
+
 type SocialLinks = NonNullable<Awaited<GetSiteSettings>>["socialLinks"];
 type SocialLinkKey = keyof NonNullable<SocialLinks>;
 
@@ -78,7 +80,9 @@ export default function SocialLinks({ socialLinks }: Props) {
         ? (Object.entries(socialLinks) as [SocialLinkKey, string][]).map(
             ([type, address]) => (
               <li key={type}>
-                <SocialLink type={type} address={address} />
+                <CursorHover enterEffect="activate" leaveEffect="deactivate">
+                  <SocialLink type={type} address={address} />
+                </CursorHover>
               </li>
             )
           )
