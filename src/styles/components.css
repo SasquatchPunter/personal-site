@@ -5,4 +5,19 @@
     @apply bg-clip-text text-transparent bg-gradient-to-b from-base-1 via-base-1 to-base-2 bg-repeat-x duration-300 bg-bottom hover:bg-top;
     background-size: auto 200%;
   }
+
+  #cursor {
+    @apply z-50 absolute w-10 h-10 rounded-full border-3px border-base-1/25;
+    @apply -translate-x-1/2 -translate-y-1/2;
+    @apply pointer-events-none;
+
+    transition:
+      width 100ms linear,
+      height 100ms linear,
+      border-width 200ms linear;
+
+    &.cursor-hidden {
+      @apply w-0 h-0 border-0;
+    }
+  }
 }
