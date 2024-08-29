@@ -13,8 +13,10 @@ export default function SplitText({
   className,
   splitLength = 1,
 }: Props) {
-  const chunks = splitText(children, splitLength).map((chunk) => (
-    <span className={className}>{chunk}</span>
+  const chunks = splitText(children, splitLength).map((chunk, idx) => (
+    <span key={idx} className={className}>
+      {chunk}
+    </span>
   ));
   return <>{chunks}</>;
 }
