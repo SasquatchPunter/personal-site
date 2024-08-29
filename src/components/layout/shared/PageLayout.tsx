@@ -18,8 +18,12 @@ export default function PageLayout({
   hasNav = true,
   hasCustomCursor = true,
 }: Props) {
+  const classNames: (string | undefined)[] = [
+    hasCustomCursor ? "cursor-none" : undefined,
+  ];
+
   return (
-    <>
+    <div className={classNames.join(" ")}>
       <Head>
         <title>{`${siteTitle} | ${title}`}</title>
 
@@ -35,6 +39,6 @@ export default function PageLayout({
       {hasCustomCursor ? <Cursor /> : null}
       {hasNav ? <MainNav /> : null}
       {children}
-    </>
+    </div>
   );
 }
