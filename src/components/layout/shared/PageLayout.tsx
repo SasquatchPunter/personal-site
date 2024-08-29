@@ -18,12 +18,13 @@ export default function PageLayout({
   hasNav = true,
   hasCustomCursor = true,
 }: Props) {
-  const classNames: (string | undefined)[] = [
-    hasCustomCursor ? "cursor-none" : undefined,
-  ];
-
   return (
-    <div className={classNames.join(" ")}>
+    <div
+      className={[
+        hasCustomCursor ? "cursor-none" : undefined,
+        "min-h-screen",
+      ].join(" ")}
+    >
       <Head>
         <title>{`${siteTitle} | ${title}`}</title>
 
