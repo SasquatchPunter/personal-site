@@ -7,20 +7,23 @@ type CursorAction = Exclude<
 
 interface Props {
   children: React.ReactNode;
+  className?: string;
   enterEffect: CursorAction;
   leaveEffect: CursorAction;
-  inline?: boolean;
+  span?: boolean;
 }
 export default function CursorHover({
   children,
+  className,
   enterEffect,
   leaveEffect,
-  inline = false,
+  span = false,
 }: Props) {
   const { actions } = useCursorContext();
 
-  return inline ? (
+  return span ? (
     <span
+      className={className}
       onMouseEnter={actions[enterEffect]}
       onMouseLeave={actions[leaveEffect]}
     >
@@ -28,6 +31,7 @@ export default function CursorHover({
     </span>
   ) : (
     <div
+      className={className}
       onMouseEnter={actions[enterEffect]}
       onMouseLeave={actions[leaveEffect]}
     >
