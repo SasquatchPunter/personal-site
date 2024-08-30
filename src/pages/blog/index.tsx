@@ -4,7 +4,7 @@ import { getSiteSettings, getMinPosts } from "@/sanity/lib/fetch";
 import { extractTags } from "@/sanity/utils/blog";
 
 import PageLayout from "@/src/components/layout/shared/PageLayout";
-import BlogList from "@/src/components/blog/BlogList";
+import BlogList from "@/src/components/blog/list/BlogList";
 import Footer from "@/src/components/layout/shared/Footer";
 
 export async function getStaticProps() {

@@ -4,7 +4,7 @@ import type { MouseEventHandler } from "react";
 import { formatDateString } from "@/src/utils/date";
 
 import Link from "next/link";
-import BlogTag from "./BlogTag";
+import BlogTag from "@/src/components/blog/BlogTag";
 
 interface CardTagProps {
   tag: string;

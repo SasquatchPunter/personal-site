@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BlogTag from "./BlogTag";
+import BlogTag from "@/src/components/blog/BlogTag";
 
 interface BlogPostTagProps {
   tag: string;

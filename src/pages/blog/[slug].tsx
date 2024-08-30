@@ -8,7 +8,7 @@ import {
 } from "@/sanity/lib/fetch";
 import { tocTreeFromAnchors } from "@/sanity/utils/blog";
 
-import BlogPost from "@/src/components/blog/BlogPost";
+import BlogPost from "@/src/components/blog/post/BlogPost";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
 import Footer from "@/src/components/layout/shared/Footer";
 
