@@ -7,7 +7,7 @@
   }
 
   #cursor {
-    @apply z-50 absolute w-10 h-10 rounded-full border-4px border-base-1/25;
+    @apply z-50 absolute w-10 h-10 rounded-full border-3px border-base-1/25;
     @apply -translate-x-1/2 -translate-y-1/2;
     @apply pointer-events-none;
     @apply flex justify-center items-center;
