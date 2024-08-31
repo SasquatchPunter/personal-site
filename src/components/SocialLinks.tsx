@@ -21,7 +21,7 @@ function SocialLinkAnchor({ children, href, title }: SocialLinkAnchorProps) {
     <a
       href={href}
       target="_blank"
-      className="*:w-6 *:h-6 opacity-70 hover:opacity-100 duration-300 *:shadow-transparent *:hover:translate-y-0.5 *:hover:shadow-base-1 *:drop-shadow-lg-c *:hover:drop-shadow-lg-b *:duration-300"
+      className="*:w-6 *:h-6 opacity-75 hover:opacity-100 duration-300 *:shadow-transparent *:hover:translate-y-0.5 *:hover:shadow-base-1 *:drop-shadow-lg-c *:hover:drop-shadow-lg-b *:duration-300"
       title={title}
     >
       {children}
@@ -75,7 +75,7 @@ interface Props {
 }
 export default function SocialLinks({ socialLinks }: Props) {
   return (
-    <ul className="flex gap-8 justify-center mt-4">
+    <ul className="flex gap-8 justify-center">
       {socialLinks
         ? (Object.entries(socialLinks) as [SocialLinkKey, string][]).map(
             ([type, address]) => (
