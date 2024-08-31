@@ -23,7 +23,7 @@ interface Props {
 }
 export default function BlogListFilter({ filterState, filterActions }: Props) {
   return (
-    <div className="flex flex-col gap-2 my-4 mx-auto w-4/5 md:w-1/2 font-semibold text-base-1">
+    <div className="flex flex-col gap-2 w-full my-4 md:w-1/2 font-semibold text-base-1">
       <FilterSection>
         <BlogListTagFilter
           label="Included Tags"
