@@ -75,7 +75,7 @@ interface Props {
 }
 export default function SocialLinks({ socialLinks }: Props) {
   return (
-    <ul className="flex gap-8 justify-center">
+    <ul className="flex gap-10 justify-center">
       {socialLinks
         ? (Object.entries(socialLinks) as [SocialLinkKey, string][]).map(
             ([type, address]) => (

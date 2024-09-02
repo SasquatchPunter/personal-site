@@ -8,9 +8,8 @@ interface Props {
 }
 export default function Footer({ socialLinks }: Props) {
   return (
-    <footer className="flex flex-col gap-4 p-4 pb-8 mt-8 bg-base-2/50 border-base-2 border-t-2px text-base-1">
+    <footer className="flex flex-col gap-12 px-4 py-20 mt-8 bg-gradient-to-t from-base-2/40 to-black border-base-2 border-t-2px text-base-1 bottom-0">
       <section className="text-center font-semibold flex flex-col gap-2">
-        <p>Check out my socials!</p>
         <SocialLinks socialLinks={socialLinks} />
       </section>
       <Copyright />
