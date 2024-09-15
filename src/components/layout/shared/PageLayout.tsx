@@ -5,15 +5,19 @@ import MainNav from "@/src/components/layout/shared/MainNav";
 import Cursor from "@/src/components/Cursor";
 
 interface Props {
-  siteTitle?: string;
-  title?: string;
+  /** Page title. */
+  title?: string | null;
+  /** Page subtitle. */
+  subtitle?: string | null;
   children?: ReactNode;
+  /** Disabling this disables the main site nav. */
   hasNav?: boolean;
+  /** Disabling this disables the custom cursor element. */
   hasCustomCursor?: boolean;
 }
 export default function PageLayout({
-  siteTitle = "jelliott.dev",
-  title = "Page",
+  title = "jelliott.dev",
+  subtitle,
   children,
   hasNav = true,
   hasCustomCursor = true,
@@ -26,8 +30,7 @@ export default function PageLayout({
       ].join(" ")}
     >
       <Head>
-        <title>{`${siteTitle} | ${title}`}</title>
-
+        <title>{`${title}${subtitle ? " | " + subtitle : ""}`}</title>
         <link rel="icon" href="/icons/favicon-32.png" sizes="48x48" />
         <link
           rel="icon"

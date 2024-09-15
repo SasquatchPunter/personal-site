@@ -54,8 +54,8 @@ export default function BlogPostPage({
 }: BlogPostPageProps) {
   return (
     <PageLayout
-      siteTitle={siteSettings?.siteTitle || undefined}
-      title={post.title}
+      title={siteSettings?.siteTitle || undefined}
+      subtitle={post.title}
     >
       <BlogPost post={post} />
       <Footer socialLinks={siteSettings?.socialLinks || null} />

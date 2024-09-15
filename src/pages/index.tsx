@@ -16,8 +16,8 @@ export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export default function HomePage({ siteSettings }: HomePageProps) {
   return (
-    <PageLayout siteTitle={siteSettings?.siteTitle || undefined} title="Home">
-      <MainHeading>jelliott.dev</MainHeading>
+    <PageLayout title={siteSettings?.siteTitle} subtitle="Home">
+      <MainHeading>Home</MainHeading>
       <Footer socialLinks={siteSettings?.socialLinks || null} />
     </PageLayout>
   );

@@ -21,7 +21,7 @@ export type BlogPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export default function BlogPage({ posts, tags, siteSettings }: BlogPageProps) {
   return (
-    <PageLayout siteTitle={siteSettings?.siteTitle || undefined} title="Blog">
+    <PageLayout title={siteSettings?.siteTitle} subtitle="Blog">
       <MainHeading>See my blog posts...</MainHeading>
       <BlogList posts={posts} tags={tags} />
       <Footer socialLinks={siteSettings?.socialLinks || null} />
