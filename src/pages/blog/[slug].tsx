@@ -11,6 +11,7 @@ import { tocTreeFromAnchors } from "@/sanity/utils/blog";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
 import BlogPost from "@/src/components/blog/post/BlogPost";
 import Footer from "@/src/components/layout/shared/Footer";
+import AntonFont from "@/src/components/layout/fonts/AntonFont";
 
 export async function getStaticProps({ params }: { params: any }) {
   const post = await getPostBySlug(params.slug);
@@ -53,12 +54,14 @@ export default function BlogPostPage({
   siteSettings,
 }: BlogPostPageProps) {
   return (
-    <PageLayout
-      title={siteSettings?.siteTitle || undefined}
-      subtitle={post.title}
-    >
-      <BlogPost post={post} />
-      <Footer socialLinks={siteSettings?.socialLinks || null} />
-    </PageLayout>
+    <AntonFont>
+      <PageLayout
+        title={siteSettings?.siteTitle || undefined}
+        subtitle={post.title}
+      >
+        <BlogPost post={post} />
+        <Footer socialLinks={siteSettings?.socialLinks || null} />
+      </PageLayout>
+    </AntonFont>
   );
 }

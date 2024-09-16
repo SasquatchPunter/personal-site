@@ -7,6 +7,7 @@ import PageLayout from "@/src/components/layout/shared/PageLayout";
 import BlogList from "@/src/components/blog/list/BlogList";
 import Footer from "@/src/components/layout/shared/Footer";
 import MainHeading from "@/src/components/MainHeading";
+import AntonFont from "@/src/components/layout/fonts/AntonFont";
 
 export async function getStaticProps() {
   const siteSettings = await getSiteSettings();
@@ -21,10 +22,12 @@ export type BlogPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export default function BlogPage({ posts, tags, siteSettings }: BlogPageProps) {
   return (
-    <PageLayout title={siteSettings?.siteTitle} subtitle="Blog">
-      <MainHeading>See my blog posts...</MainHeading>
-      <BlogList posts={posts} tags={tags} />
-      <Footer socialLinks={siteSettings?.socialLinks || null} />
-    </PageLayout>
+    <AntonFont>
+      <PageLayout title={siteSettings?.siteTitle} subtitle="Blog">
+        <MainHeading>See my blog posts...</MainHeading>
+        <BlogList posts={posts} tags={tags} />
+        <Footer socialLinks={siteSettings?.socialLinks || null} />
+      </PageLayout>
+    </AntonFont>
   );
 }
