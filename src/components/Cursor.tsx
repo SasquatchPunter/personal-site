@@ -5,23 +5,27 @@ export default function Cursor() {
   const { ref, pos, actions } = useCursorContext();
 
   useEffect(() => {
-    if (ref.current && actions) {
+    function register() {
       document.addEventListener("scroll", actions.scroll);
       document.addEventListener("mousemove", actions.move);
       document.addEventListener("mouseenter", actions.unhide);
       document.addEventListener("mouseleave", actions.hide);
-    } else {
+    }
+    function unregister() {
       document.removeEventListener("scroll", actions.scroll);
       document.removeEventListener("mousemove", actions.move);
       document.removeEventListener("mouseenter", actions.unhide);
       document.removeEventListener("mouseleave", actions.hide);
     }
 
+    unregister();
+
+    if (ref.current && actions) {
+      register();
+    }
+
     return () => {
-      document.removeEventListener("scroll", actions.scroll);
-      document.removeEventListener("mousemove", actions.move);
-      document.removeEventListener("mouseenter", actions.unhide);
-      document.removeEventListener("mouseleave", actions.hide);
+      unregister();
     };
   }, [ref]);
 
