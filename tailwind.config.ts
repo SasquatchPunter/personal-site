@@ -19,6 +19,9 @@ const config: Config = {
   theme: {
     borderWidth,
     extend: {
+      fontFamily: {
+        anton: ["var(--font-anton)", "sans-serif", "system-ui"],
+      },
       spacing: {
         "0px": "0px",
         "1px": "1px",
