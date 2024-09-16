@@ -24,7 +24,7 @@
       )
       rgb(var(--background-start-rgb));
     & *::selection {
-      @apply bg-base-2 text-base-3;
+      @apply bg-base-3 text-base-2;
     }
   }
 }
