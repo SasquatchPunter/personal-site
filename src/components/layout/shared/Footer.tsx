@@ -1,7 +1,6 @@
 import type { GetSiteSettings } from "@/sanity/lib/fetch";
 
 import SocialLinks from "@/src/components/SocialLinks";
-import Copyright from "@/src/components/Copyright";
 
 interface Props {
   socialLinks: NonNullable<Awaited<GetSiteSettings>>["socialLinks"];
@@ -12,7 +11,9 @@ export default function Footer({ socialLinks }: Props) {
       <section className="text-center font-semibold flex flex-col gap-2">
         <SocialLinks socialLinks={socialLinks} />
       </section>
-      <Copyright />
+      <p className="text-center font-bold opacity-75">
+        <small>Copyright © 2024 Jeremy Elliott</small>
+      </p>
     </footer>
   );
 }
