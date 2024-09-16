@@ -8,8 +8,8 @@ import {
 } from "@/sanity/lib/fetch";
 import { tocTreeFromAnchors } from "@/sanity/utils/blog";
 
-import BlogPost from "@/src/components/blog/post/BlogPost";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
+import BlogPost from "@/src/components/blog/post/BlogPost";
 import Footer from "@/src/components/layout/shared/Footer";
 
 export async function getStaticProps({ params }: { params: any }) {
