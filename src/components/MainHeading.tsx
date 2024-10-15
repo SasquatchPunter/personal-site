@@ -6,7 +6,7 @@ interface Props {
 }
 export default function MainHeading({ children }: Props) {
   return (
-    <h1 className="font-anton mx-auto p-4 text-6xl text-center">
+    <h1 className="font-anton w-fit mx-auto p-4 text-6xl text-center">
       <CursorHover enterEffect="activate" leaveEffect="deactivate">
         <SplitText className="main-heading">{children}</SplitText>
       </CursorHover>
