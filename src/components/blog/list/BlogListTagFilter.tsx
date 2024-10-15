@@ -46,7 +46,7 @@ export default function BlogListTagFilter({
       {state ? (
         <ul className="flex flex-row flex-wrap gap-2">
           {state.map((tag) => (
-            <FilterTag tag={tag} removeTagFn={removeFn} />
+            <FilterTag key={tag} tag={tag} removeTagFn={removeFn} />
           ))}
         </ul>
       ) : null}
