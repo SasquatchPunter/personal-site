@@ -27,14 +27,14 @@ export default function Cursor() {
     return () => {
       unregister();
     };
-  }, [ref]);
+  }, [ref, actions]);
 
   useEffect(() => {
     if (ref.current) {
       ref.current.style.top = `${pos.y + pos.sY}px`;
       ref.current.style.left = `${pos.x + pos.sX}px`;
     }
-  }, [pos]);
+  }, [ref, pos]);
 
   return <div ref={ref} id="cursor"></div>;
 }
