@@ -19,7 +19,7 @@ export default function BlogList({ posts, tags }: Props) {
 
   useEffect(() => {
     filterActions.all.set(filterQuery);
-  }, [filterQuery]);
+  }, [filterQuery, filterActions]);
 
   return (
     <>
