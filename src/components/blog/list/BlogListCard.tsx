@@ -21,11 +21,9 @@ function CardTag({ tag, addIncludedTagFn, addExcludedTagFn }: CardTagProps) {
   };
 
   return (
-    <li key={tag}>
-      <button onClick={onClick}>
-        <BlogTag tag={tag} />
-      </button>
-    </li>
+    <button onClick={onClick}>
+      <BlogTag tag={tag} />
+    </button>
   );
 }
 
@@ -43,27 +41,30 @@ export default function BlogListCard({
   const updatedAt = formatDateString(post._updatedAt);
 
   return (
-    <li key={post._id} className="border border-gray-200 p-4">
-      <article>
+    <li key={post._id}>
+      <article className="bg-base-2/75 p-4 rounded-xl border-x-2px border-base-2">
         <Link href={`/blog/${post.slug}`}>
-          <h3 className="text-2xl hover:text-green-300">{post.title}</h3>
+          <h3 className="size-fit text-3xl text-base-1 font-bold">
+            {post.title}
+          </h3>
         </Link>
-        <p>
-          <code>{createdAt}</code>
+
+        <p className="text-xs font-light text-base-1 mt-4">
+          {createdAt} • Updated {updatedAt}
         </p>
-        <p>
-          <code>Updated {updatedAt}</code>
-        </p>
+
         {post.tags && (
-          <ul className="flex gap-2">
+          <ul className="flex flex-wrap gap-2 mt-8">
             {post.tags
-              .filter((tag) => tag != null)
+              .filter((tag) => tag !== null)
               .map((tag) => (
-                <CardTag
-                  tag={tag}
-                  addIncludedTagFn={addIncludedTagFn}
-                  addExcludedTagFn={addExcludedTagFn}
-                />
+                <li key={tag}>
+                  <CardTag
+                    tag={tag as string}
+                    addIncludedTagFn={addIncludedTagFn}
+                    addExcludedTagFn={addExcludedTagFn}
+                  />
+                </li>
               ))}
           </ul>
         )}

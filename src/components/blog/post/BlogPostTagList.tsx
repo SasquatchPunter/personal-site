@@ -23,7 +23,7 @@ export default function BlogPostTagList({ tags }: Props) {
       {tags
         .filter((tag) => tag !== null)
         .map((tag) => (
-          <BlogPostTag tag={tag} key={tag} />
+          <BlogPostTag tag={tag as string} key={tag} />
         ))}
     </ul>
   ) : null;
