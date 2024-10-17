@@ -4,17 +4,20 @@ import Cancel from "@/src/assets/icons/cancel.svg";
 import BlogTag from "@/src/components/blog/BlogTag";
 
 interface FilterTagProps {
-  tag: string;
+  tags: string[];
   removeTagFn: (tag: string) => void;
 }
-function FilterTag({ tag, removeTagFn }: FilterTagProps) {
-  const onClick = () => removeTagFn(tag);
+function FilterTags({ tags, removeTagFn }: FilterTagProps) {
   return (
-    <li key={tag}>
-      <button onClick={onClick}>
-        <BlogTag tag={tag} />
-      </button>
-    </li>
+    <ul className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <li key={tag}>
+          <button onClick={() => removeTagFn(tag)}>
+            <BlogTag tag={tag} />
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -43,13 +46,7 @@ export default function BlogListTagFilter({
         </button>
       </div>
 
-      {state ? (
-        <ul className="flex flex-row flex-wrap gap-2">
-          {state.map((tag) => (
-            <FilterTag key={tag} tag={tag} removeTagFn={removeFn} />
-          ))}
-        </ul>
-      ) : null}
+      {state ? <FilterTags tags={state} removeTagFn={removeFn} /> : null}
     </div>
   );
 }
