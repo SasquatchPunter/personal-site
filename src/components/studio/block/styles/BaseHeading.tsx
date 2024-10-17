@@ -1,4 +1,4 @@
-import { BlockStyleProps } from "sanity";
+import type { BlockStyleProps } from "sanity";
 import { Heading } from "@sanity/ui";
 
 const dimensions = {

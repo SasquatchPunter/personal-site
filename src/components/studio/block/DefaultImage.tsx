@@ -1,4 +1,4 @@
-import { PreviewProps } from "sanity";
+import type { PreviewProps } from "sanity";
 import { Stack, Text, Card } from "@sanity/ui";
 
 export default function DefaultImage(

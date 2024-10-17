@@ -1,4 +1,4 @@
-import { BlockStyleProps } from "sanity";
+import type { BlockStyleProps } from "sanity";
 import { LinkIcon } from "@sanity/icons";
 import { Heading, Inline, Box } from "@sanity/ui";
 

@@ -1,4 +1,4 @@
-import { BlockStyleProps } from "sanity";
+import type { BlockStyleProps } from "sanity";
 import BaseHeading from "./BaseHeading";
 
 export default function Heading4(props: BlockStyleProps) {

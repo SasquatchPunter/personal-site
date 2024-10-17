@@ -1,4 +1,4 @@
-import { BlockStyleProps } from "sanity";
+import type { BlockStyleProps } from "sanity";
 import BaseAnchoredHeading from "./BaseAnchoredHeading";
 
 export default function AnchoredHeading3(props: BlockStyleProps) {

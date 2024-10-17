@@ -1,4 +1,4 @@
-import { PreviewProps } from "sanity";
+import type { PreviewProps } from "sanity";
 
 export default function SectionRule(props: PreviewProps) {
   const { visible } = props as PreviewProps & { visible: boolean };
