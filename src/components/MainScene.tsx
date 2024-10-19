@@ -1,5 +1,10 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 import * as THREE from "three";
+import {
+  RenderPass,
+  EffectComposer,
+  UnrealBloomPass,
+} from "three/examples/jsm/Addons.js";
 
 function resizeCallback(
   canvas: HTMLCanvasElement,
@@ -36,6 +41,9 @@ function initRenderer(
   const renderer = rendererRef.current;
   const camera = cameraRef.current;
 
+  renderer.toneMapping = THREE.LinearToneMapping;
+  renderer.toneMappingExposure = 0.5;
+
   camera.position.z = 5;
 
   resizeCallback(canvas, camera, renderer);
@@ -54,22 +62,59 @@ function initScene(sceneRef: MutableRefObject<THREE.Scene | null>) {
   scene.add(cube);
 }
 
-function render(
-  renderer: THREE.WebGLRenderer,
+function initComposer(
+  composer: MutableRefObject<EffectComposer | null>,
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera,
-  callback: () => void
+  renderer: THREE.WebGLRenderer
+) {
+  composer.current = new EffectComposer(renderer);
+  const scenePass = new RenderPass(scene, camera);
+  composer.current.addPass(scenePass);
+
+  const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    0.5,
+    1,
+    0
+  );
+  composer.current.addPass(bloomPass);
+}
+
+function render(
+  callback: () => void,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera,
+  renderer: THREE.WebGLRenderer
+): void;
+function render(
+  callback: () => void,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera,
+  composer: EffectComposer
+): void;
+function render(
+  callback: () => void,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera,
+  rendererClass: THREE.WebGLRenderer | EffectComposer
 ) {
   const animate = () => {
     callback();
-    renderer.render(scene, camera);
+    if (rendererClass instanceof THREE.WebGLRenderer) {
+      rendererClass.render(scene, camera);
+    } else {
+      rendererClass.render();
+    }
+    requestAnimationFrame(animate);
   };
-  renderer.setAnimationLoop(animate);
+  animate();
 }
 
 export default function MainScene() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const composerRef = useRef<EffectComposer | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
 
@@ -88,6 +133,15 @@ export default function MainScene() {
       sceneRef.current &&
       cameraRef.current
     ) {
+      if (composerRef.current === null) {
+        initComposer(
+          composerRef,
+          sceneRef.current,
+          cameraRef.current,
+          rendererRef.current
+        );
+      }
+
       const canvas = canvasRef.current!;
       const renderer = rendererRef.current!;
       const scene = sceneRef.current!;
@@ -95,12 +149,21 @@ export default function MainScene() {
 
       const cube = scene.getObjectByName("cube");
 
+      var animation = () => {};
+
       if (cube) {
-        render(rendererRef.current, sceneRef.current, cameraRef.current, () => {
-          cube.rotation.x += 0.01;
-          cube.rotation.y += 0.01;
-        });
+        animation = () => {
+          cube.rotation.x += 0.005;
+          cube.rotation.y += 0.005;
+        };
       }
+
+      render(
+        animation,
+        sceneRef.current,
+        cameraRef.current,
+        composerRef.current!
+      );
 
       const resize = () => {
         resizeCallback(canvas, camera, renderer);
