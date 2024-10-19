@@ -5,6 +5,7 @@ import { getSiteSettings } from "@/sanity/lib/fetch";
 import PageLayout from "@/src/components/layout/shared/PageLayout";
 import MainHeading from "@/src/components/MainHeading";
 import AntonFont from "@/src/components/layout/fonts/AntonFont";
+import MainScene from "../components/MainScene";
 
 export async function getStaticProps() {
   const siteSettings = await getSiteSettings();
@@ -21,6 +22,7 @@ export default function HomePage({ siteSettings }: HomePageProps) {
         <header>
           <MainHeading>Home</MainHeading>
         </header>
+        <MainScene />
       </PageLayout>
     </AntonFont>
   );
