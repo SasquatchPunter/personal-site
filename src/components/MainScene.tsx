@@ -119,19 +119,19 @@ function initComposer(
 }
 
 function render(
-  callback: () => void,
+  animation: (delta: number) => void,
   scene: Scene,
   camera: PerspectiveCamera,
   renderer: WebGLRenderer
 ): void;
 function render(
-  callback: () => void,
+  animation: (delta: number) => void,
   scene: Scene,
   camera: PerspectiveCamera,
   composer: EffectComposer
 ): void;
 function render(
-  callback: () => void,
+  animation: (delta: number) => void,
   scene: Scene,
   camera: PerspectiveCamera,
   rendererClass: WebGLRenderer | EffectComposer
@@ -139,10 +139,10 @@ function render(
   let elapsed = 0;
 
   const animate: FrameRequestCallback = (time) => {
-    const delta = time - elapsed;
+    const delta = (time - elapsed) / 1000;
     elapsed = time;
 
-    callback();
+    animation(delta);
 
     if (rendererClass instanceof WebGLRenderer) {
       rendererClass.render(scene, camera);
@@ -196,18 +196,20 @@ export default function MainScene() {
       const cube2 = scene.getObjectByName("cube2");
       const cube3 = scene.getObjectByName("cube3");
 
-      var animation = () => {};
+      var animation = (delta: number) => {};
 
       if (cube1 && cube2 && cube3) {
-        animation = () => {
-          cube1.rotation.x += 0.005;
-          cube1.rotation.y += 0.005;
+        const multiplier = 0.1;
+        animation = (delta) => {
+          const rot = delta * multiplier;
+          cube1.rotation.x += rot;
+          cube1.rotation.y += rot;
 
-          cube2.rotation.x -= 0.005;
-          cube2.rotation.y -= 0.005;
+          cube2.rotation.x -= rot;
+          cube2.rotation.y -= rot;
 
-          cube3.rotation.x -= 0.005;
-          cube3.rotation.y -= 0.005;
+          cube3.rotation.x -= rot;
+          cube3.rotation.y -= rot;
         };
       }
 
