@@ -1,15 +1,27 @@
-import { MutableRefObject, useEffect, useRef } from "react";
-import * as THREE from "three";
+import type { MutableRefObject } from "react";
+
+import { useEffect, useRef } from "react";
+import {
+  PerspectiveCamera,
+  WebGLRenderer,
+  LinearToneMapping,
+  Scene,
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  Vector2,
+} from "three";
 import {
   RenderPass,
   EffectComposer,
   UnrealBloomPass,
+  SMAAPass,
 } from "three/examples/jsm/Addons.js";
 
 function resizeCallback(
   canvas: HTMLCanvasElement,
-  camera: THREE.PerspectiveCamera,
-  renderer: THREE.WebGLRenderer
+  camera: PerspectiveCamera,
+  renderer: WebGLRenderer | EffectComposer
 ) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
@@ -20,17 +32,17 @@ function resizeCallback(
 
 function initRenderer(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
-  rendererRef: MutableRefObject<THREE.WebGLRenderer | null>,
-  cameraRef: MutableRefObject<THREE.PerspectiveCamera | null>
+  rendererRef: MutableRefObject<WebGLRenderer | null>,
+  cameraRef: MutableRefObject<PerspectiveCamera | null>
 ) {
   if (canvasRef.current === null) return;
 
-  rendererRef.current = new THREE.WebGLRenderer({
+  rendererRef.current = new WebGLRenderer({
     canvas: canvasRef.current,
     antialias: true,
   });
 
-  cameraRef.current = new THREE.PerspectiveCamera(
+  cameraRef.current = new PerspectiveCamera(
     60,
     canvasRef.current.clientWidth / canvasRef.current.clientHeight,
     0.1,
@@ -41,39 +53,64 @@ function initRenderer(
   const renderer = rendererRef.current;
   const camera = cameraRef.current;
 
-  renderer.toneMapping = THREE.LinearToneMapping;
-  renderer.toneMappingExposure = 0.5;
+  renderer.toneMapping = LinearToneMapping;
+  renderer.toneMappingExposure = 0.2;
 
   camera.position.z = 5;
 
   resizeCallback(canvas, camera, renderer);
 }
 
-function initScene(sceneRef: MutableRefObject<THREE.Scene | null>) {
-  sceneRef.current = new THREE.Scene();
+function initScene(sceneRef: MutableRefObject<Scene | null>) {
+  sceneRef.current = new Scene();
 
   const scene = sceneRef.current;
 
-  const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshBasicMaterial({ color: 0xadffb0 });
-  const cube = new THREE.Mesh(geometry, material);
-  cube.name = "cube";
+  const geometry = new BoxGeometry();
+  const material = new MeshBasicMaterial({ color: 0xadffb0 });
+  const cube = new Mesh(geometry, material);
 
-  scene.add(cube);
+  const cube1 = cube.clone(),
+    cube2 = cube.clone(),
+    cube3 = cube.clone();
+
+  cube1.name = "cube1";
+  cube2.name = "cube2";
+  cube3.name = "cube3";
+
+  cube2.position.x = -2;
+  cube2.position.y = 2;
+  cube2.position.z = -6;
+
+  cube3.position.x = 2;
+  cube3.position.y = -2;
+  cube3.position.z = -6;
+
+  scene.add(cube1, cube2, cube3);
 }
 
 function initComposer(
   composer: MutableRefObject<EffectComposer | null>,
-  scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera,
-  renderer: THREE.WebGLRenderer
+  scene: Scene,
+  camera: PerspectiveCamera,
+  renderer: WebGLRenderer
 ) {
   composer.current = new EffectComposer(renderer);
+
   const scenePass = new RenderPass(scene, camera);
   composer.current.addPass(scenePass);
 
+  const smaaPass = new SMAAPass(
+    renderer.domElement.clientWidth,
+    renderer.domElement.clientHeight
+  );
+  composer.current.addPass(smaaPass);
+
   const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    new Vector2(
+      renderer.domElement.clientWidth,
+      renderer.domElement.clientHeight
+    ),
     0.5,
     1,
     0
@@ -83,40 +120,47 @@ function initComposer(
 
 function render(
   callback: () => void,
-  scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera,
-  renderer: THREE.WebGLRenderer
+  scene: Scene,
+  camera: PerspectiveCamera,
+  renderer: WebGLRenderer
 ): void;
 function render(
   callback: () => void,
-  scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera,
+  scene: Scene,
+  camera: PerspectiveCamera,
   composer: EffectComposer
 ): void;
 function render(
   callback: () => void,
-  scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera,
-  rendererClass: THREE.WebGLRenderer | EffectComposer
+  scene: Scene,
+  camera: PerspectiveCamera,
+  rendererClass: WebGLRenderer | EffectComposer
 ) {
-  const animate = () => {
+  let elapsed = 0;
+
+  const animate: FrameRequestCallback = (time) => {
+    const delta = time - elapsed;
+    elapsed = time;
+
     callback();
-    if (rendererClass instanceof THREE.WebGLRenderer) {
+
+    if (rendererClass instanceof WebGLRenderer) {
       rendererClass.render(scene, camera);
     } else {
       rendererClass.render();
     }
     requestAnimationFrame(animate);
   };
-  animate();
+
+  requestAnimationFrame(animate);
 }
 
 export default function MainScene() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const rendererRef = useRef<WebGLRenderer | null>(null);
   const composerRef = useRef<EffectComposer | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<PerspectiveCamera | null>(null);
+  const sceneRef = useRef<Scene | null>(null);
 
   useEffect(() => {
     if (!rendererRef.current && canvasRef.current) {
@@ -146,15 +190,24 @@ export default function MainScene() {
       const renderer = rendererRef.current!;
       const scene = sceneRef.current!;
       const camera = cameraRef.current!;
+      const composer = composerRef.current!;
 
-      const cube = scene.getObjectByName("cube");
+      const cube1 = scene.getObjectByName("cube1");
+      const cube2 = scene.getObjectByName("cube2");
+      const cube3 = scene.getObjectByName("cube3");
 
       var animation = () => {};
 
-      if (cube) {
+      if (cube1 && cube2 && cube3) {
         animation = () => {
-          cube.rotation.x += 0.005;
-          cube.rotation.y += 0.005;
+          cube1.rotation.x += 0.005;
+          cube1.rotation.y += 0.005;
+
+          cube2.rotation.x -= 0.005;
+          cube2.rotation.y -= 0.005;
+
+          cube3.rotation.x -= 0.005;
+          cube3.rotation.y -= 0.005;
         };
       }
 
@@ -163,10 +216,12 @@ export default function MainScene() {
         sceneRef.current,
         cameraRef.current,
         composerRef.current!
+        // rendererRef.current
       );
 
       const resize = () => {
         resizeCallback(canvas, camera, renderer);
+        resizeCallback(canvas, camera, composer);
       };
 
       window.addEventListener("resize", resize);
