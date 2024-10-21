@@ -123,13 +123,13 @@ function render(
   scene: Scene,
   camera: PerspectiveCamera,
   renderer: WebGLRenderer
-): void;
+): () => void;
 function render(
   animation: (delta: number) => void,
   scene: Scene,
   camera: PerspectiveCamera,
   composer: EffectComposer
-): void;
+): () => void;
 function render(
   animation: (delta: number) => void,
   scene: Scene,
@@ -137,22 +137,32 @@ function render(
   rendererClass: WebGLRenderer | EffectComposer
 ) {
   let elapsed = 0;
+  let requestId = 0;
 
-  const animate: FrameRequestCallback = (time) => {
-    const delta = (time - elapsed) / 1000;
-    elapsed = time;
+  const animate: FrameRequestCallback =
+    rendererClass instanceof WebGLRenderer
+      ? (time) => {
+          const delta = (time - elapsed) / 1000;
+          elapsed = time;
 
-    animation(delta);
+          animation(delta);
+          rendererClass.render(scene, camera);
+          requestId = requestAnimationFrame(animate);
+        }
+      : (time) => {
+          const delta = (time - elapsed) / 1000;
+          elapsed = time;
 
-    if (rendererClass instanceof WebGLRenderer) {
-      rendererClass.render(scene, camera);
-    } else {
-      rendererClass.render();
-    }
-    requestAnimationFrame(animate);
+          animation(delta);
+          rendererClass.render();
+          requestId = requestAnimationFrame(animate);
+        };
+
+  requestId = requestAnimationFrame(animate);
+
+  return () => {
+    cancelAnimationFrame(requestId);
   };
-
-  requestAnimationFrame(animate);
 }
 
 export default function MainScene() {
@@ -213,7 +223,7 @@ export default function MainScene() {
         };
       }
 
-      render(
+      const stopRender = render(
         animation,
         sceneRef.current,
         cameraRef.current,
@@ -230,7 +240,8 @@ export default function MainScene() {
 
       return () => {
         window.removeEventListener("resize", resize);
-        renderer.setAnimationLoop(null);
+        // renderer.setAnimationLoop(null);
+        stopRender();
       };
     }
   }, []);
