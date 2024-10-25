@@ -6,6 +6,7 @@ import PageLayout from "@/src/components/layout/shared/PageLayout";
 import MainHeading from "@/src/components/MainHeading";
 import AntonFont from "@/src/components/layout/fonts/AntonFont";
 import MainScene from "../components/MainScene";
+import FiberScene from "../components/FiberScene";
 
 export async function getStaticProps() {
   const siteSettings = await getSiteSettings();
@@ -22,7 +23,8 @@ export default function HomePage({ siteSettings }: HomePageProps) {
         <header>
           <MainHeading>Home</MainHeading>
         </header>
-        <MainScene />
+        {/* <MainScene /> */}
+        <FiberScene />
       </PageLayout>
     </AntonFont>
   );
