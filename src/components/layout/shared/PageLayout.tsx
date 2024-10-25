@@ -19,14 +19,16 @@ export default function PageLayout({
   title = "jelliott.dev",
   subtitle,
   children,
+  //TODO: change hasNav to noNav so it can be opted out without passing explicit false via prop
   hasNav = true,
+  //TODO: change hasCustomCursor to noCustomCursor so it can be opted out without passing explicit false via prop
   hasCustomCursor = true,
 }: Props) {
   return (
     <div
       className={[
         hasCustomCursor ? "cursor-none" : undefined,
-        "min-h-screen",
+        "min-h-screen relative z-0",
       ].join(" ")}
     >
       <Head>
